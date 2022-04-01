@@ -1,4 +1,6 @@
 from django.db import models
+from django.core.validators import MinValueValidator, MaxValueValidator
+
 from users.models import User
 
 
@@ -26,7 +28,10 @@ class Title(models.Model):
     category = models.ForeignKey(
         Category,
         on_delete=models.SET_NULL,
-        related_name='category')
+        related_name='category',
+        null=True,
+        blank=True,
+    )
     genre = models.ManyToManyField(
         Genre,
         related_name='genre')
@@ -50,12 +55,13 @@ class Review(models.Model):
         on_delete=models.CASCADE,
         verbose_name='Автор'
     )
-    # score = models.
-    # z
-    # z
-    # z
-    #     verbose_name='Оценка'
-    # )
+    score = models.PositiveSmallIntegerField(
+        validators=[
+            MinValueValidator(1),
+            MaxValueValidator(10)
+        ],
+        verbose_name='Оценка'
+    )
     pub_date = models.DateTimeField(
         auto_now_add=True,
         verbose_name='Дата публикации'
@@ -82,7 +88,7 @@ class Comment(models.Model):
         Review,
         on_delete=models.CASCADE,
         related_name='comments',
-        verbose_name='Отзыв',
+        verbose_name='Отзыв'
     )
     text = models.TextField(
         verbose_name='Текст'
