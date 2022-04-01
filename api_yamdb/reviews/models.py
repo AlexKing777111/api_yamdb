@@ -26,11 +26,12 @@ class Title(models.Model):
     category = models.ForeignKey(
         Category,
         on_delete=models.SET_NULL,
+        null=True,
         related_name='category')
     genre = models.ManyToManyField(
         Genre,
         related_name='genre')
-    description = models.TextField()
+    description = models.TextField(blank=True)
 
     def __str__(self):
         return self.name
