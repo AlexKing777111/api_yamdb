@@ -1,15 +1,8 @@
 from rest_framework import viewsets
-
-
-class ReviewViewSet(viewsets.ModelViewSet):
-    pass
-
-
-class CommentViewSet(viewsets.ModelViewSet):
-    pass
 from api.serializers import (CategorySerializer, GenreSerializer,
                              TitlePOSTSerializer, TitleSerializer)
 from rest_framework import mixins, viewsets
+
 from reviews.models import Category, Genre, Title
 
 
@@ -44,3 +37,11 @@ class GenreViewSet(GetPostDelViewSet):
     queryset = Genre.objects.all()
     serializer_class = GenreSerializer
     # permission_classes =
+
+
+class ReviewViewSet(viewsets.ModelViewSet):
+    pass
+
+
+class CommentViewSet(viewsets.ModelViewSet):
+    pass
