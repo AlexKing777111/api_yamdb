@@ -47,7 +47,10 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('text', models.TextField(verbose_name='Текст')),
+<<<<<<< HEAD
                 ('score', models.PositiveSmallIntegerField(validators=[django.core.validators.MinValueValidator(1), django.core.validators.MaxValueValidator(10)], verbose_name='Оценка')),
+=======
+>>>>>>> feature/Categories-Genres-Titles
                 ('pub_date', models.DateTimeField(auto_now_add=True, verbose_name='Дата публикации')),
             ],
             options={
@@ -64,7 +67,11 @@ class Migration(migrations.Migration):
                 ('name', models.TextField()),
                 ('year', models.IntegerField(verbose_name='year')),
                 ('description', models.TextField()),
+<<<<<<< HEAD
                 ('category', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='category', to='reviews.Category')),
+=======
+                ('category', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='category', to='reviews.Category')),
+>>>>>>> feature/Categories-Genres-Titles
                 ('genre', models.ManyToManyField(related_name='genre', to='reviews.Genre')),
             ],
         ),
