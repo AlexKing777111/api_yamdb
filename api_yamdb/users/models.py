@@ -20,10 +20,8 @@ class User(AbstractUser):
         verbose_name="Роль пользователя",
         default="user",
     )
-    is_staff = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=True)
 
-    REQUIRED_FIELDS = [""]
+    REQUIRED_FIELDS = ["email"]
     USERNAME_FIELDS = "email"
     REQUIRED_FIELDS = ["email"]
 

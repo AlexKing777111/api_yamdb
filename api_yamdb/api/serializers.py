@@ -1,7 +1,10 @@
+import datetime as dt
+
+from django.db.models import Avg
 from rest_framework import serializers
 from rest_framework.relations import SlugRelatedField
 
-from reviews.models import Category, Genre, Title, Review, Comment
+from reviews.models import Category, Comment, Genre, Review, Title
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -30,16 +33,40 @@ class TitlePOSTSerializer(serializers.ModelSerializer):
         fields = '__all__'
         model = Title
 
+    def validate_year(self, value):
+        year = dt.date.today().year
+        if not (value <= year):
+            raise serializers.ValidationError('Check the year!')
+        return value
+
+    def validate_category(self, value):
+        if Category.objects.filter(slug=value).exists():
+            raise serializers.ValidationError('Check category!')
+        return value
+
+    def validate_genre(self, value):
+        if Genre.objects.filter(slug=value).exists():
+            raise serializers.ValidationError('Check genre!')
+        return value
+
 
 class TitleSerializer(serializers.ModelSerializer):
     category = CategorySerializer()
-    genre = SlugRelatedField(many=True,
-                             queryset=Genre.objects.all(),
-                             slug_field='slug')
+    genre = GenreSerializer(read_only=True, many=True)
+    rating = serializers.SerializerMethodField()
 
     class Meta:
-        fields = '__all__'
+        fields = ('id',
+                  'name',
+                  'year',
+                  'category',
+                  'genre',
+                  'description',
+                  'rating',)
         model = Title
+
+    def get_rating(self, obj):
+        return obj.reviews.aggregate(Avg('score'))['score__avg']
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -53,7 +80,7 @@ class GenreSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Genre
-        fields = '__all__'
+        fields = ('name', 'slug')
 
 
 class ReviewSerializer(serializers.ModelSerializer):
