@@ -47,7 +47,6 @@ class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = ('name', 'slug')
-        exclude = 'id'
 
 
 class GenreSerializer(serializers.ModelSerializer):
@@ -61,9 +60,10 @@ class ReviewSerializer(serializers.ModelSerializer):
     author = serializers.SlugRelatedField(
         slug_field='username',
         read_only=True,
+        default=serializers.CurrentUserDefault()
     )
     title = serializers.SlugRelatedField(
-        slug_field='pk',
+        slug_field='id',
         read_only=True,
     )
 
