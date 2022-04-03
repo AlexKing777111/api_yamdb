@@ -1,4 +1,11 @@
+from django.shortcuts import get_object_or_404
+from rest_framework.decorators import api_view, action, permission_classes
+from rest_framework.response import Response
+from rest_framework import filters, viewsets
 from django.contrib.auth.tokens import default_token_generator
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework import permissions
+from .models import User
 from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404
 from rest_framework import filters, viewsets
@@ -13,12 +20,14 @@ from .serializers import (ConfirmationCodeSerializer, EmailSerializer,
 
 
 @api_view(["POST"])
+@permission_classes([permissions.AllowAny])
 def send_confirmation_code(request):
     if request.method == "POST":
         serializer = EmailSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         email = serializer.validated_data.get("email")
-        user, _ = User.objects.get_or_create(email=email)
+        username = serializer.validated_data.get("username")
+        user, _ = User.objects.get_or_create(email=email, username=username)
         token = default_token_generator.make_token(user)
         send_mail(
             subject="Confirmation code!",
@@ -32,15 +41,16 @@ def send_confirmation_code(request):
 
 
 @api_view(["POST"])
+@permission_classes([permissions.AllowAny])
 def send_token(request):
     serializer = ConfirmationCodeSerializer(data=request.data)
     serializer.is_valid(raise_exception=True)
     confirmation_code = serializer.validated_data.get("confirmation_code")
-    email = serializer.validated_data.get("email")
-    user = get_object_or_404(User, email=email)
+    username = serializer.validated_data.get("username")
+    user = get_object_or_404(User, username=username)
     if confirmation_code is None:
         return Response("Введите confirmation_code")
-    if email is None:
+    if username is None:
         return Response("Введите email")
     token_check = default_token_generator.check_token(user, confirmation_code)
     if token_check is True:
@@ -52,6 +62,7 @@ def send_token(request):
 class UsersViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     filter_backends = (filters.SearchFilter, filters.OrderingFilter)
+    permission_classes = (permissions.IsAdminUser,)
     lookup_field = "username"
     queryset = User.objects.all()
     search_fields = ("user__username",)
@@ -63,11 +74,13 @@ class UsersViewSet(viewsets.ModelViewSet):
             "get",
             "patch",
         ),
+        permission_classes=[permissions.IsAuthenticated],
         url_path="me",
         url_name="me",
     )
     def get_me(self, request):
         user = self.request.user
+        self.check_object_permissions(self.request, user)
         serializer = self.get_serializer(user)
         if request.method == "PATCH":
             serializer = self.get_serializer(

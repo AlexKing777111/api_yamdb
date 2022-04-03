@@ -4,15 +4,23 @@ from .models import User
 
 
 class EmailSerializer(serializers.Serializer):
+    username = serializers.CharField(required=True)
     email = serializers.EmailField(required=True)
 
 
 class ConfirmationCodeSerializer(serializers.Serializer):
-    email = serializers.EmailField(required=True)
+    username = serializers.CharField(required=True)
     confirmation_code = serializers.CharField(required=True)
 
 
-class UserSerializer(serializers.Serializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = "__all__"
+        fields = (
+            "username",
+            "email",
+            "first_name",
+            "last_name",
+            "bio",
+            "role",
+        )
