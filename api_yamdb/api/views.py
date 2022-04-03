@@ -70,15 +70,6 @@ class ReviewViewSet(viewsets.ModelViewSet):
         title_id = self.kwargs.get('title_id')
         title = get_object_or_404(Title, id=title_id)
         serializer.save(author=self.request.user, title=title)
-<<<<<<< HEAD
-=======
-
-    def get_serializer_context(self):
-        context = super(ReviewViewSet, self).get_serializer_context()
-        title = get_object_or_404(Title, id=self.kwargs.get('title_id'))
-        context.update({'title': title})
-        return context
->>>>>>> feature/Categories-Genres-Titles
 
 
 class CommentViewSet(viewsets.ModelViewSet):
