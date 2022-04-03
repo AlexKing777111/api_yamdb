@@ -1,5 +1,7 @@
 import os
 
+from datetime import timedelta
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = "p&l%385148kslhtyn^##a1)ilz@4zqj=rq&agdol^##zgl9(vs"
@@ -96,9 +98,17 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticated",
+    ],
 }
 DEFAULT_FROM_EMAIL = "admin@yamdb.ru"
 
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
+    "AUTH_HEADER_TYPES": ("Bearer",),
+}
