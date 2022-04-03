@@ -1,10 +1,11 @@
-from rest_framework import mixins, viewsets
+from rest_framework import mixins, viewsets, filters
 from rest_framework.generics import get_object_or_404
+from django_filters.rest_framework import DjangoFilterBackend
 
 from api.serializers import (CategorySerializer, GenreSerializer,
                              TitlePOSTSerializer, TitleSerializer,
                              CommentSerializer, ReviewSerializer)
-from api.permissions import ReviewCommentPermission
+from api.permissions import ReviewCommentPermission, ReadOnly, AdminUser
 from reviews.models import Category, Genre, Title, Review
 
 
@@ -13,32 +14,44 @@ class GetPostDelViewSet(mixins.CreateModelMixin,
                         mixins.ListModelMixin,
                         mixins.DestroyModelMixin,
                         viewsets.GenericViewSet):
-    pass
+    filter_backends = (filters.SearchFilter)
+    search_fields = ('name',)
+    permission_classes = (ReadOnly,)
+
+    def get_permissions(self):
+        if self.request.method != 'GET':
+            return (AdminUser(),)
+        return super().get_permissions()
 
 
 class TitleViewSet(viewsets.ModelViewSet):
     queryset = Title.objects.all()
     serializer_class = TitleSerializer
-    # permission_classes =
+    filter_backends = (DjangoFilterBackend,)
+    filterset_fields = ('category__slug', 'genre__slug', 'name', 'year',)
+    permission_classes = (ReadOnly,)
 
     def get_serializer_class(self):
         if self.request.method == 'GET':
             return TitleSerializer
         return TitlePOSTSerializer
 
+    def get_permissions(self):
+        if self.request.method != 'GET':
+            return (AdminUser(),)
+        return super().get_permissions()
+
 
 class CategoryViewSet(GetPostDelViewSet):
     lookup_field = 'slug'
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
-    # permission_classes =
 
 
 class GenreViewSet(GetPostDelViewSet):
     lookup_field = 'slug'
     queryset = Genre.objects.all()
     serializer_class = GenreSerializer
-    # permission_classes =
 
 
 class ReviewViewSet(viewsets.ModelViewSet):

@@ -23,7 +23,7 @@ class User(AbstractUser):
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
 
-    REQUIRED_FIELDS = [""]
+    REQUIRED_FIELDS = ["email"]
     USERNAME_FIELDS = "email"
 
     def __str__(self):
