@@ -1,12 +1,13 @@
-from rest_framework import mixins, viewsets, filters
-from rest_framework.generics import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters, mixins, viewsets
+from rest_framework.generics import get_object_or_404
+from rest_framework.pagination import PageNumberPagination
 
-from api.serializers import (CategorySerializer, GenreSerializer,
-                             TitlePOSTSerializer, TitleSerializer,
-                             CommentSerializer, ReviewSerializer)
-from api.permissions import ReviewCommentPermission, ReadOnly, AdminUser
-from reviews.models import Category, Genre, Title, Review
+from api.permissions import AdminUser, ReadOnly, ReviewCommentPermission
+from api.serializers import (CategorySerializer, CommentSerializer,
+                             GenreSerializer, ReviewSerializer,
+                             TitlePOSTSerializer, TitleSerializer)
+from reviews.models import Category, Genre, Review, Title
 
 
 class GetPostDelViewSet(mixins.CreateModelMixin,
@@ -17,6 +18,7 @@ class GetPostDelViewSet(mixins.CreateModelMixin,
     filter_backends = (filters.SearchFilter)
     search_fields = ('name',)
     permission_classes = (ReadOnly,)
+    pagination_class = PageNumberPagination
 
     def get_permissions(self):
         if self.request.method != 'GET':
@@ -30,6 +32,7 @@ class TitleViewSet(viewsets.ModelViewSet):
     filter_backends = (DjangoFilterBackend,)
     filterset_fields = ('category__slug', 'genre__slug', 'name', 'year',)
     permission_classes = (ReadOnly,)
+    pagination_class = PageNumberPagination
 
     def get_serializer_class(self):
         if self.request.method == 'GET':
@@ -66,7 +69,7 @@ class ReviewViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         title_id = self.kwargs.get('title_id')
         title = get_object_or_404(Title, id=title_id)
-        serializer.save(author=self.request.user, title=title_id)
+        serializer.save(author=self.request.user, title=title)
 
     def get_serializer_context(self):
         context = super(ReviewViewSet, self).get_serializer_context()
