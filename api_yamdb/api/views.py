@@ -11,12 +11,12 @@ from reviews.models import Category, Genre, Review, Title
 
 
 class GetPostDelViewSet(mixins.CreateModelMixin,
-                        mixins.RetrieveModelMixin,
+                        #mixins.RetrieveModelMixin,
                         mixins.ListModelMixin,
                         mixins.DestroyModelMixin,
                         viewsets.GenericViewSet):
-    filter_backends = (filters.SearchFilter)
-    search_fields = ('name',)
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['name']
     permission_classes = (ReadOnly,)
     pagination_class = PageNumberPagination
 
