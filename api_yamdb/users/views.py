@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework import filters, viewsets
 from django.contrib.auth.tokens import default_token_generator
 from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework import permissions
+from rest_framework import permissions, serializers
 from .models import User
 from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404
@@ -80,7 +80,6 @@ class UsersViewSet(viewsets.ModelViewSet):
     )
     def get_me(self, request):
         user = self.request.user
-        self.check_object_permissions(self.request, user)
         serializer = self.get_serializer(user)
         if request.method == "PATCH":
             serializer = self.get_serializer(
