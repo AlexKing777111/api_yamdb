@@ -9,13 +9,13 @@ PATH_DIR = os.path.join(BASE_DIR, r"static\data")
 PATH_TO_BD = "../api_yamdb/db.sqlite3"
 
 CONFORMITY = [
-    # {"users.csv": "users_user"},
-    # {"category.csv": "reviews_category"},
-    # {"genre.csv": "reviews_genre"},
+    {"users.csv": "users_user"},
+    {"category.csv": "reviews_category"},
+    {"genre.csv": "reviews_genre"},
     {"titles.csv": "reviews_title"},
-    # {"title_genre.csv": "reviews_title_genre"},
-    # {'review.csv': 'reviews_review'},
-    # {'comments.csv': 'reviews_comment'},
+    {"genre_title.csv": "reviews_title_genre"},
+    {"review.csv": "reviews_review"},
+    {"comments.csv": "reviews_comment"},
 ]
 
 
