@@ -14,8 +14,8 @@ CONFORMITY = [
     {"genre.csv": "reviews_genre"},
     {"titles.csv": "reviews_title"},
     {"genre_title.csv": "reviews_title_genre"},
-    {'review.csv': 'reviews_review'},
-    {'comments.csv': 'reviews_comment'},
+    {"review.csv": "reviews_review"},
+    {"comments.csv": "reviews_comment"},
 ]
 
 
