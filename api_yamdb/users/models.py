@@ -26,7 +26,6 @@ class User(AbstractUser):
     is_staff = models.BooleanField(default=False, null=True)
     is_superuser = models.BooleanField(default=False, null=True)
 
-    REQUIRED_FIELDS = ["email"]
     USERNAME_FIELDS = "email"
     REQUIRED_FIELDS = ["email"]
 
