@@ -11,7 +11,6 @@ from reviews.models import Category, Genre, Review, Title
 
 
 class GetPostDelViewSet(mixins.CreateModelMixin,
-                        #mixins.RetrieveModelMixin,
                         mixins.ListModelMixin,
                         mixins.DestroyModelMixin,
                         viewsets.GenericViewSet):
