@@ -1,44 +1,60 @@
-from rest_framework import mixins, viewsets
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters, mixins, viewsets
 from rest_framework.generics import get_object_or_404
+from rest_framework.pagination import PageNumberPagination
 
-from api.serializers import (CategorySerializer, GenreSerializer,
-                             TitlePOSTSerializer, TitleSerializer,
-                             CommentSerializer, ReviewSerializer)
-from api.permissions import ReviewCommentPermission
-from reviews.models import Category, Genre, Title, Review
+from api.permissions import AdminUser, ReadOnly, ReviewCommentPermission
+from api.serializers import (CategorySerializer, CommentSerializer,
+                             GenreSerializer, ReviewSerializer,
+                             TitlePOSTSerializer, TitleSerializer)
+from reviews.models import Category, Genre, Review, Title
 
 
 class GetPostDelViewSet(mixins.CreateModelMixin,
-                        mixins.RetrieveModelMixin,
+                        #mixins.RetrieveModelMixin,
                         mixins.ListModelMixin,
                         mixins.DestroyModelMixin,
                         viewsets.GenericViewSet):
-    pass
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['name']
+    permission_classes = (ReadOnly,)
+    pagination_class = PageNumberPagination
+
+    def get_permissions(self):
+        if self.request.method != 'GET':
+            return (AdminUser(),)
+        return super().get_permissions()
 
 
 class TitleViewSet(viewsets.ModelViewSet):
     queryset = Title.objects.all()
     serializer_class = TitleSerializer
-    # permission_classes =
+    filter_backends = (DjangoFilterBackend,)
+    filterset_fields = ('category__slug', 'genre__slug', 'name', 'year',)
+    permission_classes = (ReadOnly,)
+    pagination_class = PageNumberPagination
 
     def get_serializer_class(self):
         if self.request.method == 'GET':
             return TitleSerializer
         return TitlePOSTSerializer
 
+    def get_permissions(self):
+        if self.request.method != 'GET':
+            return (AdminUser(),)
+        return super().get_permissions()
+
 
 class CategoryViewSet(GetPostDelViewSet):
     lookup_field = 'slug'
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
-    # permission_classes =
 
 
 class GenreViewSet(GetPostDelViewSet):
     lookup_field = 'slug'
     queryset = Genre.objects.all()
     serializer_class = GenreSerializer
-    # permission_classes =
 
 
 class ReviewViewSet(viewsets.ModelViewSet):
@@ -54,6 +70,12 @@ class ReviewViewSet(viewsets.ModelViewSet):
         title_id = self.kwargs.get('title_id')
         title = get_object_or_404(Title, id=title_id)
         serializer.save(author=self.request.user, title=title)
+
+    def get_serializer_context(self):
+        context = super(ReviewViewSet, self).get_serializer_context()
+        title = get_object_or_404(Title, id=self.kwargs.get('title_id'))
+        context.update({'title': title})
+        return context
 
 
 class CommentViewSet(viewsets.ModelViewSet):
