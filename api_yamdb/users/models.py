@@ -20,8 +20,16 @@ class User(AbstractUser):
         verbose_name="Роль пользователя",
         default="user",
     )
-    password = models.CharField("password", max_length=128, null=True)
-    date_joined = models.DateTimeField(auto_now_add=True, null=True)
+    # first_name = models.TextField(
+    # #     null=True
+    #       blank=True
+    # )
+    # last_name = models.TextField(
+    # #     null=True
+    #       blank=True
+    # )
+    # password = models.CharField("password", max_length=128, null=True)
+    # date_joined = models.DateTimeField(auto_now_add=True, null=True)
     is_active = models.BooleanField(default=True, null=True)
     is_staff = models.BooleanField(default=False, null=True)
     is_superuser = models.BooleanField(default=False, null=True)

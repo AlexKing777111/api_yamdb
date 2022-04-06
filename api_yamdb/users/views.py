@@ -68,6 +68,12 @@ class UsersViewSet(viewsets.ModelViewSet):
     search_fields = ("user__username",)
     ordering = ("username",)
 
+    # def perform_create(self, serializer):
+    #     if 'role' not in serializer.validated_data:
+    #         serializer.save(role=User.role)
+    #     else:
+    #         serializer.save()
+
     @action(
         detail=False,
         methods=(

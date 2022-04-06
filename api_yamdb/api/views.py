@@ -2,12 +2,14 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters, mixins, viewsets
 from rest_framework.generics import get_object_or_404
 from rest_framework.pagination import PageNumberPagination
+from rest_framework.pagination import LimitOffsetPagination
 
 from api.permissions import AdminUser, ReadOnly, ReviewCommentPermission
 from api.serializers import (CategorySerializer, CommentSerializer,
                              GenreSerializer, ReviewSerializer,
                              TitlePOSTSerializer, TitleSerializer)
 from reviews.models import Category, Genre, Review, Title
+from users.models import User
 
 
 class GetPostDelViewSet(mixins.CreateModelMixin,
@@ -60,6 +62,7 @@ class GenreViewSet(GetPostDelViewSet):
 class ReviewViewSet(viewsets.ModelViewSet):
     serializer_class = ReviewSerializer
     permission_classes = (ReviewCommentPermission,)
+    pagination_class = LimitOffsetPagination
 
     def get_queryset(self):
         title_id = self.kwargs.get('title_id')
@@ -75,6 +78,7 @@ class ReviewViewSet(viewsets.ModelViewSet):
 class CommentViewSet(viewsets.ModelViewSet):
     serializer_class = CommentSerializer
     permission_classes = (ReviewCommentPermission,)
+    pagination_class = LimitOffsetPagination
 
     def get_queryset(self):
         review_id = self.kwargs.get('review_id')
