@@ -13,7 +13,6 @@ from users.models import User
 
 
 class GetPostDelViewSet(mixins.CreateModelMixin,
-                        #mixins.RetrieveModelMixin,
                         mixins.ListModelMixin,
                         mixins.DestroyModelMixin,
                         viewsets.GenericViewSet):
