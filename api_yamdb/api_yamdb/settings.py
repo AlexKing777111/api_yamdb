@@ -1,8 +1,6 @@
 import os
 from datetime import timedelta
 
-from datetime import timedelta
-
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = "p&l%385148kslhtyn^##a1)ilz@4zqj=rq&agdol^##zgl9(vs"
@@ -107,7 +105,7 @@ REST_FRAMEWORK = {
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
-    "AUTH_HEADER_TYPES": ('Bearer',),
+    "AUTH_HEADER_TYPES": ("Bearer",),
 }
 
 DEFAULT_FROM_EMAIL = "admin@yamdb.ru"

@@ -1,6 +1,5 @@
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
-
 from users.models import User
 
 
@@ -33,7 +32,7 @@ class Title(models.Model):
         return self.name
 
     class Meta:
-        ordering = ['-pk']
+        ordering = ["-pk"]
 
 
 class Review(models.Model):
