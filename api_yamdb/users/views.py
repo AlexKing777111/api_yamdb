@@ -1,3 +1,4 @@
+from django.forms import ValidationError
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view, action, permission_classes
 from rest_framework.response import Response
@@ -8,15 +9,19 @@ from rest_framework import permissions, serializers
 from .models import User
 from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404
-from rest_framework import filters, viewsets
+from rest_framework import filters, viewsets, status
 from rest_framework.decorators import action, api_view
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 
+from .permissions import AdminSuperuser, AdminUser
 from .models import User
-from .serializers import (ConfirmationCodeSerializer, EmailSerializer,
-                          UserSerializer)
+from .serializers import (
+    ConfirmationCodeSerializer,
+    EmailSerializer,
+    UserSerializer,
+)
 
 
 @api_view(["POST"])
@@ -27,17 +32,37 @@ def send_confirmation_code(request):
         serializer.is_valid(raise_exception=True)
         email = serializer.validated_data.get("email")
         username = serializer.validated_data.get("username")
-        user, _ = User.objects.get_or_create(email=email, username=username)
-        token = default_token_generator.make_token(user)
-        send_mail(
-            subject="Confirmation code!",
-            message=str(token),
-            from_email="admin@yamdb.ru",
-            recipient_list=[
-                email,
-            ],
-        )
-        return Response("Confirmation code отправлен на ваш Email.")
+        if username == "me":
+            return Response(
+                "Вы не можете создать пользователя с таким userename.",
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        if User.objects.filter(email=email).exists():
+            return Response(
+                "Пользователь с таким email уже зарегистрирован.",
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        elif User.objects.filter(username=username).exists():
+            return Response(
+                "Пользователь с таким username уже зарегистрирован.",
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        else:
+            user = User.objects.create(email=email, username=username)
+            token = default_token_generator.make_token(user)
+            resp = {"email": email, "username": username}
+            send_mail(
+                subject="Confirmation code!",
+                message=str(token),
+                from_email="admin@yamdb.ru",
+                recipient_list=[
+                    email,
+                ],
+            )
+            return Response(
+                resp,
+                status=status.HTTP_200_OK,
+            )
 
 
 @api_view(["POST"])
@@ -49,23 +74,29 @@ def send_token(request):
     username = serializer.validated_data.get("username")
     user = get_object_or_404(User, username=username)
     if confirmation_code is None:
-        return Response("Введите confirmation_code")
+        return Response(
+            "Введите confirmation_code", status=status.HTTP_400_BAD_REQUEST
+        )
     if username is None:
-        return Response("Введите email")
+        return Response("Введите email", status=status.HTTP_400_BAD_REQUEST)
     token_check = default_token_generator.check_token(user, confirmation_code)
     if token_check is True:
         refresh = RefreshToken.for_user(user)
-        return Response(f"Ваш токен:{refresh.access_token}")
-    return Response("Неправильный confirmation_code или email.")
+        return Response(
+            f"Ваш токен:{refresh.access_token}", status=status.HTTP_200_OK
+        )
+    return Response(
+        "Неправильный confirmation_code", status=status.HTTP_400_BAD_REQUEST
+    )
 
 
 class UsersViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     filter_backends = (filters.SearchFilter, filters.OrderingFilter)
-    permission_classes = (permissions.IsAdminUser,)
+    permission_classes = (AdminUser,)
     lookup_field = "username"
     queryset = User.objects.all()
-    search_fields = ("user__username",)
+    search_fields = ("username",)
     ordering = ("username",)
 
     @action(
@@ -82,10 +113,15 @@ class UsersViewSet(viewsets.ModelViewSet):
         user = self.request.user
         serializer = self.get_serializer(user)
         if request.method == "PATCH":
+            if request.user.role == "user" and "role" in request.data:
+                return Response(
+                    f"Вы не можете изменить это поле.",
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
             serializer = self.get_serializer(
                 user, data=request.data, partial=True
             )
             if serializer.is_valid():
                 serializer.save()
-                return Response(serializer.data)
-        return Response(serializer.data)
+                return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.data, status=status.HTTP_200_OK)

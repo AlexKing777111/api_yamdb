@@ -1,3 +1,4 @@
+from email.quoprimime import unquote
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
@@ -8,7 +9,13 @@ class User(AbstractUser):
         ("moderator", "Модератор"),
         ("admin", "Администратор"),
     )
-
+    username = models.CharField(
+        "Имя пользователя",
+        max_length=128,
+        unique=True,
+        blank=False,
+        null=False,
+    )
     bio = models.TextField(
         "Биография",
         blank=True,
@@ -20,15 +27,12 @@ class User(AbstractUser):
         verbose_name="Роль пользователя",
         default="user",
     )
-    password = models.CharField("password", max_length=128, null=True)
-    date_joined = models.DateTimeField(auto_now_add=True, null=True)
-    is_active = models.BooleanField(default=True, null=True)
-    is_staff = models.BooleanField(default=False, null=True)
-    is_superuser = models.BooleanField(default=False, null=True)
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
 
     REQUIRED_FIELDS = ["email"]
     USERNAME_FIELDS = "email"
-    REQUIRED_FIELDS = ["email"]
 
     def __str__(self):
         return self.username
