@@ -1,9 +1,9 @@
-import sqlite3
 import csv
 import os
-from django.core.management.base import BaseCommand
+import sqlite3
 
 from api_yamdb.settings import BASE_DIR
+from django.core.management.base import BaseCommand
 
 PATH_DIR = os.path.join(BASE_DIR, r"static\data")
 PATH_TO_BD = "../api_yamdb/db.sqlite3"
