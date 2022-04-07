@@ -1,24 +1,24 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters, mixins, viewsets
 from rest_framework.generics import get_object_or_404
-from rest_framework.pagination import PageNumberPagination
+from rest_framework.pagination import LimitOffsetPagination
 
 from api.permissions import AdminUser, ReadOnly, ReviewCommentPermission
 from api.serializers import (CategorySerializer, CommentSerializer,
                              GenreSerializer, ReviewSerializer,
                              TitlePOSTSerializer, TitleSerializer)
 from reviews.models import Category, Genre, Review, Title
+from api.filters import TitleFilter
 
 
 class GetPostDelViewSet(mixins.CreateModelMixin,
-                        #mixins.RetrieveModelMixin,
                         mixins.ListModelMixin,
                         mixins.DestroyModelMixin,
                         viewsets.GenericViewSet):
     filter_backends = [filters.SearchFilter]
     search_fields = ['name']
     permission_classes = (ReadOnly,)
-    pagination_class = PageNumberPagination
+    pagination_class = LimitOffsetPagination
 
     def get_permissions(self):
         if self.request.method != 'GET':
@@ -30,9 +30,9 @@ class TitleViewSet(viewsets.ModelViewSet):
     queryset = Title.objects.all()
     serializer_class = TitleSerializer
     filter_backends = (DjangoFilterBackend,)
-    filterset_fields = ('category__slug', 'genre__slug', 'name', 'year',)
+    filterset_class = TitleFilter
     permission_classes = (ReadOnly,)
-    pagination_class = PageNumberPagination
+    pagination_class = LimitOffsetPagination
 
     def get_serializer_class(self):
         if self.request.method == 'GET':
