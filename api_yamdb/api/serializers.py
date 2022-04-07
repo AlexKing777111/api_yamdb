@@ -84,16 +84,25 @@ class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         fields = "__all__"
         model = Review
-        validators = [
-            serializers.UniqueTogetherValidator(
-                queryset=Review.objects.all(), fields=("author",)
-            )
-        ]
+
+    def validate(self, data):
+        title_id = self.context["request"].parser_context["kwargs"]["title_id"]
+        author = self.context["request"].user
+        if (
+            Review.objects.filter(author=author, title=title_id)
+            and self.context["request"].method == "POST"
+        ):
+            raise serializers.ValidationError("Must be unical!")
+        return data
 
 
 class CommentSerializer(serializers.ModelSerializer):
     author = serializers.SlugRelatedField(
         slug_field="username", read_only=True
+    )
+    review = serializers.SlugRelatedField(
+        slug_field="id",
+        read_only=True,
     )
 
     class Meta:
