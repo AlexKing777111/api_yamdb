@@ -67,6 +67,7 @@ class GenreViewSet(GetPostDelViewSet):
 class ReviewViewSet(viewsets.ModelViewSet):
     serializer_class = ReviewSerializer
     permission_classes = (ReviewCommentPermission,)
+    pagination_class = LimitOffsetPagination
 
     def get_queryset(self):
         title_id = self.kwargs.get("title_id")

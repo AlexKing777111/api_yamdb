@@ -4,30 +4,21 @@ from django.db.models import Avg
 from rest_framework import serializers
 from rest_framework.relations import SlugRelatedField
 from reviews.models import Category, Comment, Genre, Review, Title
+from rest_framework.validators import UniqueTogetherValidator
 
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-<<<<<<< HEAD
-        fields = ('name', 'slug')
-        lookup_field = 'slug'
-=======
         fields = ("name", "slug")
         lookup_field = "slug"
->>>>>>> master
 
 
 class GenreSerializer(serializers.ModelSerializer):
     class Meta:
         model = Genre
-<<<<<<< HEAD
-        fields = ('name', 'slug')
-        lookup_field = 'slug'
-=======
         fields = ("name", "slug")
         lookup_field = "slug"
->>>>>>> master
 
 
 class TitlePOSTSerializer(serializers.ModelSerializer):
@@ -94,16 +85,23 @@ class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         fields = "__all__"
         model = Review
-        validators = [
-            serializers.UniqueTogetherValidator(
-                queryset=Review.objects.all(), fields=("author", "title")
-            )
-        ]
+
+    def validate(self, data):
+        title_id = self.context['request'].parser_context['kwargs']['title_id']
+        author = self.context['request'].user
+        if (Review.objects.filter(author=author, title=title_id)
+                and self.context['request'].method == 'POST'):
+            raise serializers.ValidationError("Must be unical!")
+        return data
 
 
 class CommentSerializer(serializers.ModelSerializer):
     author = serializers.SlugRelatedField(
         slug_field="username", read_only=True
+    )
+    review = serializers.SlugRelatedField(
+        slug_field="id",
+        read_only=True,
     )
 
     class Meta:
