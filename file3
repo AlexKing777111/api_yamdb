@@ -1,0 +1,1597 @@
+============================= test session starts =============================
+platform win32 -- Python 3.8.5, pytest-6.2.4, py-1.11.0, pluggy-0.13.1 -- c:\dev\api_yamdb\venv\scripts\python.exe
+django: settings: api_yamdb.settings (from ini)
+rootdir: C:\Dev\api_yamdb, configfile: pytest.ini, testpaths: tests/
+plugins: django-4.4.0, pythonpath-0.7.3
+collecting ... collected 53 items
+
+tests/test_00_user_registration.py::Test00UserRegistration::test_00_nodata_signup PASSED [  1%]
+tests/test_00_user_registration.py::Test00UserRegistration::test_00_invalid_data_signup PASSED [  3%]
+tests/test_00_user_registration.py::Test00UserRegistration::test_00_valid_data_user_signup FAILED [  5%]
+tests/test_00_user_registration.py::Test00UserRegistration::test_00_valid_data_admin_create_user FAILED [  7%]
+tests/test_00_user_registration.py::Test00UserRegistration::test_00_obtain_jwt_token_invalid_data FAILED [  9%]
+tests/test_00_user_registration.py::Test00UserRegistration::test_00_registration_me_username_restricted FAILED [ 11%]
+tests/test_00_user_registration.py::Test00UserRegistration::test_00_registration_same_email_restricted FAILED [ 13%]
+tests/test_01_users.py::Test01UserAPI::test_01_users_not_authenticated PASSED [ 15%]
+tests/test_01_users.py::Test01UserAPI::test_02_users_username_not_authenticated PASSED [ 16%]
+tests/test_01_users.py::Test01UserAPI::test_03_users_me_not_authenticated PASSED [ 18%]
+tests/test_01_users.py::Test01UserAPI::test_04_users_get_admin FAILED    [ 20%]
+tests/test_01_users.py::Test01UserAPI::test_04_02_users_get_search FAILED [ 22%]
+tests/test_01_users.py::Test01UserAPI::test_04_01_users_get_admin_only PASSED [ 24%]
+tests/test_01_users.py::Test01UserAPI::test_05_01_users_post_admin FAILED [ 26%]
+tests/test_01_users.py::Test01UserAPI::test_05_02_users_post_user_superuser PASSED [ 28%]
+tests/test_01_users.py::Test01UserAPI::test_06_users_username_get_admin FAILED [ 30%]
+tests/test_01_users.py::Test01UserAPI::test_06_users_username_get_not_admin PASSED [ 32%]
+tests/test_01_users.py::Test01UserAPI::test_07_01_users_username_patch_admin FAILED [ 33%]
+tests/test_01_users.py::Test01UserAPI::test_07_02_users_username_patch_moderator PASSED [ 35%]
+tests/test_01_users.py::Test01UserAPI::test_07_03_users_username_patch_user PASSED [ 37%]
+tests/test_01_users.py::Test01UserAPI::test_07_05_users_username_put_user_restricted PASSED [ 39%]
+tests/test_01_users.py::Test01UserAPI::test_08_01_users_username_delete_admin FAILED [ 41%]
+tests/test_01_users.py::Test01UserAPI::test_08_02_users_username_delete_moderator PASSED [ 43%]
+tests/test_01_users.py::Test01UserAPI::test_08_03_users_username_delete_user PASSED [ 45%]
+tests/test_01_users.py::Test01UserAPI::test_08_04_users_username_delete_superuser PASSED [ 47%]
+tests/test_01_users.py::Test01UserAPI::test_09_users_check_permissions FAILED [ 49%]
+tests/test_01_users.py::Test01UserAPI::test_10_users_me_get_admin FAILED [ 50%]
+tests/test_01_users.py::Test01UserAPI::test_11_01_users_me_patch_admin FAILED [ 52%]
+tests/test_01_users.py::Test01UserAPI::test_11_02_users_me_patch_user FAILED [ 54%]
+tests/test_02_category.py::Test02CategoryAPI::test_01_category_not_auth PASSED [ 56%]
+tests/test_02_category.py::Test02CategoryAPI::test_02_category_admin PASSED [ 58%]
+tests/test_02_category.py::Test02CategoryAPI::test_03_category_delete_admin PASSED [ 60%]
+tests/test_02_category.py::Test02CategoryAPI::test_04_category_check_permission_admin FAILED [ 62%]
+tests/test_02_category.py::Test02CategoryAPI::test_05_category_create_user PASSED [ 64%]
+tests/test_02_category.py::Test02CategoryAPI::test_06_category_create_moderator PASSED [ 66%]
+tests/test_03_genre.py::Test03GenreAPI::test_01_genre_not_auth PASSED    [ 67%]
+tests/test_03_genre.py::Test03GenreAPI::test_02_genre PASSED             [ 69%]
+tests/test_03_genre.py::Test03GenreAPI::test_03_genres_delete PASSED     [ 71%]
+tests/test_03_genre.py::Test03GenreAPI::test_04_genres_check_permission FAILED [ 73%]
+tests/test_03_genre.py::Test03GenreAPI::test_05_genre_create_user PASSED [ 75%]
+tests/test_03_genre.py::Test03GenreAPI::test_06_genre_create_moderator PASSED [ 77%]
+tests/test_04_title.py::Test04TitleAPI::test_01_title_not_auth PASSED    [ 79%]
+tests/test_04_title.py::Test04TitleAPI::test_02_title_admin FAILED       [ 81%]
+tests/test_04_title.py::Test04TitleAPI::test_03_titles_detail PASSED     [ 83%]
+tests/test_04_title.py::Test04TitleAPI::test_04_titles_check_permission FAILED [ 84%]
+tests/test_05_review.py::Test05ReviewAPI::test_01_review_not_auth PASSED [ 86%]
+tests/test_05_review.py::Test05ReviewAPI::test_02_review_admin FAILED    [ 88%]
+tests/test_05_review.py::Test05ReviewAPI::test_03_review_detail FAILED   [ 90%]
+tests/test_05_review.py::Test05ReviewAPI::test_04_reviews_check_permission FAILED [ 92%]
+tests/test_06_comment.py::Test06CommentAPI::test_01_comment_not_auth FAILED [ 94%]
+tests/test_06_comment.py::Test06CommentAPI::test_02_comment FAILED       [ 96%]
+tests/test_06_comment.py::Test06CommentAPI::test_03_review_detail FAILED [ 98%]
+tests/test_06_comment.py::Test06CommentAPI::test_04_comment_check_permission FAILED [100%]
+
+================================== FAILURES ===================================
+____________ Test00UserRegistration.test_00_valid_data_user_signup ____________
+
+self = <tests.test_00_user_registration.Test00UserRegistration object at 0x0000026F0A6536D0>
+client = <django.test.client.Client object at 0x0000026F0A8B7370>
+
+    @pytest.mark.django_db(transaction=True)
+    def test_00_valid_data_user_signup(self, client):
+    
+        valid_email = 'valid@yamdb.fake'
+        valid_username = 'valid_username'
+        outbox_before_count = len(mail.outbox)
+    
+        valid_data = {
+            'email': valid_email,
+            'username': valid_username
+        }
+        request_type = 'POST'
+>       response = client.post(self.url_signup, data=valid_data)
+
+tests\test_00_user_registration.py:87: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+venv\lib\site-packages\django\test\client.py:543: in post
+    response = super().post(path, data=data, content_type=content_type, secure=secure, **extra)
+venv\lib\site-packages\django\test\client.py:356: in post
+    return self.generic('POST', path, post_data, content_type,
+venv\lib\site-packages\django\test\client.py:422: in generic
+    return self.request(**r)
+venv\lib\site-packages\django\test\client.py:503: in request
+    raise exc_value
+venv\lib\site-packages\django\core\handlers\exception.py:34: in inner
+    response = get_response(request)
+venv\lib\site-packages\django\core\handlers\base.py:115: in _get_response
+    response = self.process_exception_by_middleware(e, request)
+venv\lib\site-packages\django\core\handlers\base.py:113: in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+venv\lib\site-packages\django\views\decorators\csrf.py:54: in wrapped_view
+    return view_func(*args, **kwargs)
+venv\lib\site-packages\django\views\generic\base.py:71: in view
+    return self.dispatch(request, *args, **kwargs)
+venv\lib\site-packages\rest_framework\views.py:509: in dispatch
+    response = self.handle_exception(exc)
+venv\lib\site-packages\rest_framework\views.py:469: in handle_exception
+    self.raise_uncaught_exception(exc)
+venv\lib\site-packages\rest_framework\views.py:480: in raise_uncaught_exception
+    raise exc
+venv\lib\site-packages\rest_framework\views.py:506: in dispatch
+    response = handler(request, *args, **kwargs)
+venv\lib\site-packages\rest_framework\decorators.py:50: in handler
+    return func(*args, **kwargs)
+api_yamdb\users\views.py:31: in send_confirmation_code
+    token = default_token_generator.make_token(user)
+venv\lib\site-packages\django\contrib\auth\tokens.py:21: in make_token
+    return self._make_token_with_timestamp(user, self._num_days(self._today()))
+venv\lib\site-packages\django\contrib\auth\tokens.py:60: in _make_token_with_timestamp
+    self._make_hash_value(user, timestamp),
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <django.contrib.auth.tokens.PasswordResetTokenGenerator object at 0x0000026F0936E190>
+user = <User: valid_username>, timestamp = 7765
+
+    def _make_hash_value(self, user, timestamp):
+        """
+        Hash the user's primary key and some user state that's sure to change
+        after a password reset to produce a token that invalidated when it's
+        used:
+        1. The password field will change upon a password reset (even if the
+           same password is chosen, due to password salting).
+        2. The last_login field will usually be updated very shortly after
+           a password reset.
+        Failing those things, settings.PASSWORD_RESET_TIMEOUT_DAYS eventually
+        invalidates the token.
+    
+        Running this data through salted_hmac() prevents password cracking
+        attempts using the reset token, provided the secret isn't compromised.
+        """
+        # Truncate microseconds so that tokens are consistent even if the
+        # database doesn't support microseconds.
+        login_timestamp = '' if user.last_login is None else user.last_login.replace(microsecond=0, tzinfo=None)
+>       return str(user.pk) + user.password + str(login_timestamp) + str(timestamp)
+E       TypeError: can only concatenate str (not "NoneType") to str
+
+venv\lib\site-packages\django\contrib\auth\tokens.py:83: TypeError
+------------------------------ Captured log call ------------------------------
+ERROR    django.request:log.py:222 Internal Server Error: /api/v1/auth/signup/
+Traceback (most recent call last):
+  File "c:\dev\api_yamdb\venv\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "c:\dev\api_yamdb\venv\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "c:\dev\api_yamdb\venv\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "c:\dev\api_yamdb\venv\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "c:\dev\api_yamdb\venv\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "c:\dev\api_yamdb\venv\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "c:\dev\api_yamdb\venv\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "c:\dev\api_yamdb\venv\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "c:\dev\api_yamdb\venv\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "c:\dev\api_yamdb\venv\lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "C:\Dev\api_yamdb\api_yamdb\users\views.py", line 31, in send_confirmation_code
+    token = default_token_generator.make_token(user)
+  File "c:\dev\api_yamdb\venv\lib\site-packages\django\contrib\auth\tokens.py", line 21, in make_token
+    return self._make_token_with_timestamp(user, self._num_days(self._today()))
+  File "c:\dev\api_yamdb\venv\lib\site-packages\django\contrib\auth\tokens.py", line 60, in _make_token_with_timestamp
+    self._make_hash_value(user, timestamp),
+  File "c:\dev\api_yamdb\venv\lib\site-packages\django\contrib\auth\tokens.py", line 83, in _make_hash_value
+    return str(user.pk) + user.password + str(login_timestamp) + str(timestamp)
+TypeError: can only concatenate str (not "NoneType") to str
+_________ Test00UserRegistration.test_00_valid_data_admin_create_user _________
+
+self = <tests.test_00_user_registration.Test00UserRegistration object at 0x0000026F0AA084F0>
+admin_client = <rest_framework.test.APIClient object at 0x0000026F0A992BE0>
+
+    @pytest.mark.django_db(transaction=True)
+    def test_00_valid_data_admin_create_user(self, admin_client):
+    
+        valid_email = 'valid@yamdb.fake'
+        valid_username = 'valid_username'
+        outbox_before_count = len(mail.outbox)
+    
+        valid_data = {
+            'email': valid_email,
+            'username': valid_username
+        }
+        request_type = 'POST'
+        response = admin_client.post(self.url_admin_create_user, data=valid_data)
+        outbox_after = mail.outbox
+    
+        assert response.status_code != 404, (
+            f'Страница `{self.url_admin_create_user}` не найдена, проверьте этот адрес в *urls.py*'
+        )
+    
+        code = 201
+>       assert response.status_code == code, (
+            f'Проверьте, что при {request_type} запросе `{self.url_admin_create_user}` с валидными данными '
+            f'от имени администратора, создается пользователь и возвращается статус {code}'
+        )
+E       AssertionError: Проверьте, что при POST запросе `/api/v1/users/` с валидными данными от имени администратора, создается пользователь и возвращается статус 201
+E       assert 403 == 201
+E         +403
+E         -201
+
+tests\test_00_user_registration.py:142: AssertionError
+------------------------------ Captured log call ------------------------------
+WARNING  django.request:log.py:222 Forbidden: /api/v1/users/
+________ Test00UserRegistration.test_00_obtain_jwt_token_invalid_data _________
+
+self = <tests.test_00_user_registration.Test00UserRegistration object at 0x0000026F0A38A9A0>
+client = <django.test.client.Client object at 0x0000026F0AA72670>
+
+    @pytest.mark.django_db(transaction=True)
+    def test_00_obtain_jwt_token_invalid_data(self, client):
+    
+        request_type = 'POST'
+        response = client.post(self.url_token)
+        assert response.status_code != 404, (
+            f'Страница `{self.url_token}` не найдена, проверьте этот адрес в *urls.py*'
+        )
+    
+        code = 400
+        assert response.status_code == code, (
+            f'Проверьте, что при POST запросе `{self.url_token}` без параметров, '
+            f'возвращается статус {code}'
+        )
+    
+        invalid_data = {
+            'confirmation_code': 12345
+        }
+        response = client.post(self.url_token, data=invalid_data)
+        assert response.status_code == code, (
+            f'Проверьте, что при POST запросе `{self.url_token}` без username, '
+            f'возвращается статус {code}'
+        )
+    
+        invalid_data = {
+            'username': 'unexisting_user',
+            'confirmation_code': 12345
+        }
+        response = client.post(self.url_token, data=invalid_data)
+        code = 404
+        assert response.status_code == code, (
+            f'Проверьте, что при POST запросе `{self.url_token}` с несуществующим username, '
+            f'возвращается статус {code}'
+        )
+    
+        valid_email = 'valid@yamdb.fake'
+        valid_username = 'valid_username'
+    
+        valid_data = {
+            'email': valid_email,
+            'username': valid_username
+        }
+>       response = client.post(self.url_signup, data=valid_data)
+
+tests\test_00_user_registration.py:209: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+venv\lib\site-packages\django\test\client.py:543: in post
+    response = super().post(path, data=data, content_type=content_type, secure=secure, **extra)
+venv\lib\site-packages\django\test\client.py:356: in post
+    return self.generic('POST', path, post_data, content_type,
+venv\lib\site-packages\django\test\client.py:422: in generic
+    return self.request(**r)
+venv\lib\site-packages\django\test\client.py:503: in request
+    raise exc_value
+venv\lib\site-packages\django\core\handlers\exception.py:34: in inner
+    response = get_response(request)
+venv\lib\site-packages\django\core\handlers\base.py:115: in _get_response
+    response = self.process_exception_by_middleware(e, request)
+venv\lib\site-packages\django\core\handlers\base.py:113: in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+venv\lib\site-packages\django\views\decorators\csrf.py:54: in wrapped_view
+    return view_func(*args, **kwargs)
+venv\lib\site-packages\django\views\generic\base.py:71: in view
+    return self.dispatch(request, *args, **kwargs)
+venv\lib\site-packages\rest_framework\views.py:509: in dispatch
+    response = self.handle_exception(exc)
+venv\lib\site-packages\rest_framework\views.py:469: in handle_exception
+    self.raise_uncaught_exception(exc)
+venv\lib\site-packages\rest_framework\views.py:480: in raise_uncaught_exception
+    raise exc
+venv\lib\site-packages\rest_framework\views.py:506: in dispatch
+    response = handler(request, *args, **kwargs)
+venv\lib\site-packages\rest_framework\decorators.py:50: in handler
+    return func(*args, **kwargs)
+api_yamdb\users\views.py:31: in send_confirmation_code
+    token = default_token_generator.make_token(user)
+venv\lib\site-packages\django\contrib\auth\tokens.py:21: in make_token
+    return self._make_token_with_timestamp(user, self._num_days(self._today()))
+venv\lib\site-packages\django\contrib\auth\tokens.py:60: in _make_token_with_timestamp
+    self._make_hash_value(user, timestamp),
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <django.contrib.auth.tokens.PasswordResetTokenGenerator object at 0x0000026F0936E190>
+user = <User: valid_username>, timestamp = 7765
+
+    def _make_hash_value(self, user, timestamp):
+        """
+        Hash the user's primary key and some user state that's sure to change
+        after a password reset to produce a token that invalidated when it's
+        used:
+        1. The password field will change upon a password reset (even if the
+           same password is chosen, due to password salting).
+        2. The last_login field will usually be updated very shortly after
+           a password reset.
+        Failing those things, settings.PASSWORD_RESET_TIMEOUT_DAYS eventually
+        invalidates the token.
+    
+        Running this data through salted_hmac() prevents password cracking
+        attempts using the reset token, provided the secret isn't compromised.
+        """
+        # Truncate microseconds so that tokens are consistent even if the
+        # database doesn't support microseconds.
+        login_timestamp = '' if user.last_login is None else user.last_login.replace(microsecond=0, tzinfo=None)
+>       return str(user.pk) + user.password + str(login_timestamp) + str(timestamp)
+E       TypeError: can only concatenate str (not "NoneType") to str
+
+venv\lib\site-packages\django\contrib\auth\tokens.py:83: TypeError
+------------------------------ Captured log call ------------------------------
+WARNING  django.request:log.py:222 Bad Request: /api/v1/auth/token/
+WARNING  django.request:log.py:222 Bad Request: /api/v1/auth/token/
+WARNING  django.request:log.py:222 Not Found: /api/v1/auth/token/
+ERROR    django.request:log.py:222 Internal Server Error: /api/v1/auth/signup/
+Traceback (most recent call last):
+  File "c:\dev\api_yamdb\venv\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "c:\dev\api_yamdb\venv\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "c:\dev\api_yamdb\venv\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "c:\dev\api_yamdb\venv\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "c:\dev\api_yamdb\venv\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "c:\dev\api_yamdb\venv\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "c:\dev\api_yamdb\venv\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "c:\dev\api_yamdb\venv\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "c:\dev\api_yamdb\venv\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "c:\dev\api_yamdb\venv\lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "C:\Dev\api_yamdb\api_yamdb\users\views.py", line 31, in send_confirmation_code
+    token = default_token_generator.make_token(user)
+  File "c:\dev\api_yamdb\venv\lib\site-packages\django\contrib\auth\tokens.py", line 21, in make_token
+    return self._make_token_with_timestamp(user, self._num_days(self._today()))
+  File "c:\dev\api_yamdb\venv\lib\site-packages\django\contrib\auth\tokens.py", line 60, in _make_token_with_timestamp
+    self._make_hash_value(user, timestamp),
+  File "c:\dev\api_yamdb\venv\lib\site-packages\django\contrib\auth\tokens.py", line 83, in _make_hash_value
+    return str(user.pk) + user.password + str(login_timestamp) + str(timestamp)
+TypeError: can only concatenate str (not "NoneType") to str
+_____ Test00UserRegistration.test_00_registration_me_username_restricted ______
+
+self = <tests.test_00_user_registration.Test00UserRegistration object at 0x0000026F0AE2A550>
+client = <django.test.client.Client object at 0x0000026F0AE2A6D0>
+
+    @pytest.mark.django_db(transaction=True)
+    def test_00_registration_me_username_restricted(self, client):
+        valid_email = 'valid@yamdb.fake'
+        invalid_username = 'me'
+        request_type = 'POST'
+    
+        valid_data = {
+            'email': valid_email,
+            'username': invalid_username
+        }
+>       response = client.post(self.url_signup, data=valid_data)
+
+tests\test_00_user_registration.py:237: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+venv\lib\site-packages\django\test\client.py:543: in post
+    response = super().post(path, data=data, content_type=content_type, secure=secure, **extra)
+venv\lib\site-packages\django\test\client.py:356: in post
+    return self.generic('POST', path, post_data, content_type,
+venv\lib\site-packages\django\test\client.py:422: in generic
+    return self.request(**r)
+venv\lib\site-packages\django\test\client.py:503: in request
+    raise exc_value
+venv\lib\site-packages\django\core\handlers\exception.py:34: in inner
+    response = get_response(request)
+venv\lib\site-packages\django\core\handlers\base.py:115: in _get_response
+    response = self.process_exception_by_middleware(e, request)
+venv\lib\site-packages\django\core\handlers\base.py:113: in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+venv\lib\site-packages\django\views\decorators\csrf.py:54: in wrapped_view
+    return view_func(*args, **kwargs)
+venv\lib\site-packages\django\views\generic\base.py:71: in view
+    return self.dispatch(request, *args, **kwargs)
+venv\lib\site-packages\rest_framework\views.py:509: in dispatch
+    response = self.handle_exception(exc)
+venv\lib\site-packages\rest_framework\views.py:469: in handle_exception
+    self.raise_uncaught_exception(exc)
+venv\lib\site-packages\rest_framework\views.py:480: in raise_uncaught_exception
+    raise exc
+venv\lib\site-packages\rest_framework\views.py:506: in dispatch
+    response = handler(request, *args, **kwargs)
+venv\lib\site-packages\rest_framework\decorators.py:50: in handler
+    return func(*args, **kwargs)
+api_yamdb\users\views.py:31: in send_confirmation_code
+    token = default_token_generator.make_token(user)
+venv\lib\site-packages\django\contrib\auth\tokens.py:21: in make_token
+    return self._make_token_with_timestamp(user, self._num_days(self._today()))
+venv\lib\site-packages\django\contrib\auth\tokens.py:60: in _make_token_with_timestamp
+    self._make_hash_value(user, timestamp),
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <django.contrib.auth.tokens.PasswordResetTokenGenerator object at 0x0000026F0936E190>
+user = <User: me>, timestamp = 7765
+
+    def _make_hash_value(self, user, timestamp):
+        """
+        Hash the user's primary key and some user state that's sure to change
+        after a password reset to produce a token that invalidated when it's
+        used:
+        1. The password field will change upon a password reset (even if the
+           same password is chosen, due to password salting).
+        2. The last_login field will usually be updated very shortly after
+           a password reset.
+        Failing those things, settings.PASSWORD_RESET_TIMEOUT_DAYS eventually
+        invalidates the token.
+    
+        Running this data through salted_hmac() prevents password cracking
+        attempts using the reset token, provided the secret isn't compromised.
+        """
+        # Truncate microseconds so that tokens are consistent even if the
+        # database doesn't support microseconds.
+        login_timestamp = '' if user.last_login is None else user.last_login.replace(microsecond=0, tzinfo=None)
+>       return str(user.pk) + user.password + str(login_timestamp) + str(timestamp)
+E       TypeError: can only concatenate str (not "NoneType") to str
+
+venv\lib\site-packages\django\contrib\auth\tokens.py:83: TypeError
+------------------------------ Captured log call ------------------------------
+ERROR    django.request:log.py:222 Internal Server Error: /api/v1/auth/signup/
+Traceback (most recent call last):
+  File "c:\dev\api_yamdb\venv\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "c:\dev\api_yamdb\venv\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "c:\dev\api_yamdb\venv\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "c:\dev\api_yamdb\venv\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "c:\dev\api_yamdb\venv\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "c:\dev\api_yamdb\venv\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "c:\dev\api_yamdb\venv\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "c:\dev\api_yamdb\venv\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "c:\dev\api_yamdb\venv\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "c:\dev\api_yamdb\venv\lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "C:\Dev\api_yamdb\api_yamdb\users\views.py", line 31, in send_confirmation_code
+    token = default_token_generator.make_token(user)
+  File "c:\dev\api_yamdb\venv\lib\site-packages\django\contrib\auth\tokens.py", line 21, in make_token
+    return self._make_token_with_timestamp(user, self._num_days(self._today()))
+  File "c:\dev\api_yamdb\venv\lib\site-packages\django\contrib\auth\tokens.py", line 60, in _make_token_with_timestamp
+    self._make_hash_value(user, timestamp),
+  File "c:\dev\api_yamdb\venv\lib\site-packages\django\contrib\auth\tokens.py", line 83, in _make_hash_value
+    return str(user.pk) + user.password + str(login_timestamp) + str(timestamp)
+TypeError: can only concatenate str (not "NoneType") to str
+______ Test00UserRegistration.test_00_registration_same_email_restricted ______
+
+self = <tests.test_00_user_registration.Test00UserRegistration object at 0x0000026F0AD4ADF0>
+client = <django.test.client.Client object at 0x0000026F0AD617C0>
+
+    @pytest.mark.django_db(transaction=True)
+    def test_00_registration_same_email_restricted(self, client):
+        valid_email_1 = 'test_duplicate_1@yamdb.fake'
+        valid_email_2 = 'test_duplicate_2@yamdb.fake'
+        valid_username_1 = 'valid_username_1'
+        valid_username_2 = 'valid_username_2'
+        request_type = 'POST'
+    
+        valid_data = {
+            'email': valid_email_1,
+            'username': valid_username_1
+        }
+>       response = client.post(self.url_signup, data=valid_data)
+
+tests\test_00_user_registration.py:256: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+venv\lib\site-packages\django\test\client.py:543: in post
+    response = super().post(path, data=data, content_type=content_type, secure=secure, **extra)
+venv\lib\site-packages\django\test\client.py:356: in post
+    return self.generic('POST', path, post_data, content_type,
+venv\lib\site-packages\django\test\client.py:422: in generic
+    return self.request(**r)
+venv\lib\site-packages\django\test\client.py:503: in request
+    raise exc_value
+venv\lib\site-packages\django\core\handlers\exception.py:34: in inner
+    response = get_response(request)
+venv\lib\site-packages\django\core\handlers\base.py:115: in _get_response
+    response = self.process_exception_by_middleware(e, request)
+venv\lib\site-packages\django\core\handlers\base.py:113: in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+venv\lib\site-packages\django\views\decorators\csrf.py:54: in wrapped_view
+    return view_func(*args, **kwargs)
+venv\lib\site-packages\django\views\generic\base.py:71: in view
+    return self.dispatch(request, *args, **kwargs)
+venv\lib\site-packages\rest_framework\views.py:509: in dispatch
+    response = self.handle_exception(exc)
+venv\lib\site-packages\rest_framework\views.py:469: in handle_exception
+    self.raise_uncaught_exception(exc)
+venv\lib\site-packages\rest_framework\views.py:480: in raise_uncaught_exception
+    raise exc
+venv\lib\site-packages\rest_framework\views.py:506: in dispatch
+    response = handler(request, *args, **kwargs)
+venv\lib\site-packages\rest_framework\decorators.py:50: in handler
+    return func(*args, **kwargs)
+api_yamdb\users\views.py:31: in send_confirmation_code
+    token = default_token_generator.make_token(user)
+venv\lib\site-packages\django\contrib\auth\tokens.py:21: in make_token
+    return self._make_token_with_timestamp(user, self._num_days(self._today()))
+venv\lib\site-packages\django\contrib\auth\tokens.py:60: in _make_token_with_timestamp
+    self._make_hash_value(user, timestamp),
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <django.contrib.auth.tokens.PasswordResetTokenGenerator object at 0x0000026F0936E190>
+user = <User: valid_username_1>, timestamp = 7765
+
+    def _make_hash_value(self, user, timestamp):
+        """
+        Hash the user's primary key and some user state that's sure to change
+        after a password reset to produce a token that invalidated when it's
+        used:
+        1. The password field will change upon a password reset (even if the
+           same password is chosen, due to password salting).
+        2. The last_login field will usually be updated very shortly after
+           a password reset.
+        Failing those things, settings.PASSWORD_RESET_TIMEOUT_DAYS eventually
+        invalidates the token.
+    
+        Running this data through salted_hmac() prevents password cracking
+        attempts using the reset token, provided the secret isn't compromised.
+        """
+        # Truncate microseconds so that tokens are consistent even if the
+        # database doesn't support microseconds.
+        login_timestamp = '' if user.last_login is None else user.last_login.replace(microsecond=0, tzinfo=None)
+>       return str(user.pk) + user.password + str(login_timestamp) + str(timestamp)
+E       TypeError: can only concatenate str (not "NoneType") to str
+
+venv\lib\site-packages\django\contrib\auth\tokens.py:83: TypeError
+------------------------------ Captured log call ------------------------------
+ERROR    django.request:log.py:222 Internal Server Error: /api/v1/auth/signup/
+Traceback (most recent call last):
+  File "c:\dev\api_yamdb\venv\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "c:\dev\api_yamdb\venv\lib\site-packages\django\core\handlers\base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "c:\dev\api_yamdb\venv\lib\site-packages\django\core\handlers\base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "c:\dev\api_yamdb\venv\lib\site-packages\django\views\decorators\csrf.py", line 54, in wrapped_view
+    return view_func(*args, **kwargs)
+  File "c:\dev\api_yamdb\venv\lib\site-packages\django\views\generic\base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "c:\dev\api_yamdb\venv\lib\site-packages\rest_framework\views.py", line 509, in dispatch
+    response = self.handle_exception(exc)
+  File "c:\dev\api_yamdb\venv\lib\site-packages\rest_framework\views.py", line 469, in handle_exception
+    self.raise_uncaught_exception(exc)
+  File "c:\dev\api_yamdb\venv\lib\site-packages\rest_framework\views.py", line 480, in raise_uncaught_exception
+    raise exc
+  File "c:\dev\api_yamdb\venv\lib\site-packages\rest_framework\views.py", line 506, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "c:\dev\api_yamdb\venv\lib\site-packages\rest_framework\decorators.py", line 50, in handler
+    return func(*args, **kwargs)
+  File "C:\Dev\api_yamdb\api_yamdb\users\views.py", line 31, in send_confirmation_code
+    token = default_token_generator.make_token(user)
+  File "c:\dev\api_yamdb\venv\lib\site-packages\django\contrib\auth\tokens.py", line 21, in make_token
+    return self._make_token_with_timestamp(user, self._num_days(self._today()))
+  File "c:\dev\api_yamdb\venv\lib\site-packages\django\contrib\auth\tokens.py", line 60, in _make_token_with_timestamp
+    self._make_hash_value(user, timestamp),
+  File "c:\dev\api_yamdb\venv\lib\site-packages\django\contrib\auth\tokens.py", line 83, in _make_hash_value
+    return str(user.pk) + user.password + str(login_timestamp) + str(timestamp)
+TypeError: can only concatenate str (not "NoneType") to str
+____________________ Test01UserAPI.test_04_users_get_admin ____________________
+
+self = <tests.test_01_users.Test01UserAPI object at 0x0000026F0AF19A30>
+admin_client = <rest_framework.test.APIClient object at 0x0000026F0AF5C5B0>
+admin = <User: TestAdmin>
+
+    @pytest.mark.django_db(transaction=True)
+    def test_04_users_get_admin(self, admin_client, admin):
+        response = admin_client.get('/api/v1/users/')
+        assert response.status_code != 404, (
+            'Страница `/api/v1/users/` не найдена, проверьте этот адрес в *urls.py*'
+        )
+>       assert response.status_code == 200, (
+            'Проверьте, что при GET запросе `/api/v1/users/` с токеном авторизации возвращается статус 200'
+        )
+E       AssertionError: Проверьте, что при GET запросе `/api/v1/users/` с токеном авторизации возвращается статус 200
+E       assert 403 == 200
+E         +403
+E         -200
+
+tests\test_01_users.py:51: AssertionError
+------------------------------ Captured log call ------------------------------
+WARNING  django.request:log.py:222 Forbidden: /api/v1/users/
+__________________ Test01UserAPI.test_04_02_users_get_search __________________
+
+self = <tests.test_01_users.Test01UserAPI object at 0x0000026F0AF1A0A0>
+admin_client = <rest_framework.test.APIClient object at 0x0000026F0AF20100>
+admin = <User: TestAdmin>
+
+    @pytest.mark.django_db(transaction=True)
+    def test_04_02_users_get_search(self, admin_client, admin):
+        url = '/api/v1/users/'
+        search_url = f'{url}?search={admin.username}'
+        response = admin_client.get(search_url)
+        assert response.status_code != 404, (
+            'Страница `/api/v1/users/?search={username}` не найдена, проверьте этот адрес в *urls.py*'
+        )
+        reponse_json = response.json()
+>       assert 'results' in reponse_json and isinstance(reponse_json.get('results'), list), (
+            'Проверьте, что при GET запросе `/api/v1/users/?search={username}` '
+            'результаты возвращаются под ключом `results` и в виде списка.'
+        )
+E       AssertionError: Проверьте, что при GET запросе `/api/v1/users/?search={username}` результаты возвращаются под ключом `results` и в виде списка.
+E       assert ('results' in {'detail': 'You do not have permission to perform this action.'})
+
+tests\test_01_users.py:97: AssertionError
+------------------------------ Captured log call ------------------------------
+WARNING  django.request:log.py:222 Forbidden: /api/v1/users/
+__________________ Test01UserAPI.test_05_01_users_post_admin __________________
+
+self = <tests.test_01_users.Test01UserAPI object at 0x0000026F0AF6DB80>
+admin_client = <rest_framework.test.APIClient object at 0x0000026F0AD8A4F0>
+admin = <User: TestAdmin>
+
+    @pytest.mark.django_db(transaction=True)
+    def test_05_01_users_post_admin(self, admin_client, admin):
+        empty_data = {}
+        response = admin_client.post('/api/v1/users/', data=empty_data)
+>       assert response.status_code == 400, (
+            'Проверьте, что при POST запросе `/api/v1/users/` с пустыми данными возвращаетe 400'
+        )
+E       AssertionError: Проверьте, что при POST запросе `/api/v1/users/` с пустыми данными возвращаетe 400
+E       assert 403 == 400
+E         +403
+E         -400
+
+tests\test_01_users.py:135: AssertionError
+------------------------------ Captured log call ------------------------------
+WARNING  django.request:log.py:222 Forbidden: /api/v1/users/
+_______________ Test01UserAPI.test_06_users_username_get_admin ________________
+
+self = <tests.test_01_users.Test01UserAPI object at 0x0000026F0AEF85B0>
+admin_client = <rest_framework.test.APIClient object at 0x0000026F0ADF9070>
+admin = <User: TestAdmin>
+
+    @pytest.mark.django_db(transaction=True)
+    def test_06_users_username_get_admin(self, admin_client, admin):
+>       user, moderator = create_users_api(admin_client)
+
+tests\test_01_users.py:272: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\common.py:13: in create_users_api
+    user = get_user_model().objects.get(username=data['username'])
+venv\lib\site-packages\django\db\models\manager.py:82: in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <QuerySet [<User: TestAdmin>]>, args = ()
+kwargs = {'username': 'TestUser'}, clone = <QuerySet []>, num = 0
+
+    def get(self, *args, **kwargs):
+        """
+        Perform the query and return a single object matching the given
+        keyword arguments.
+        """
+        clone = self.filter(*args, **kwargs)
+        if self.query.can_filter() and not self.query.distinct_fields:
+            clone = clone.order_by()
+        num = len(clone)
+        if num == 1:
+            return clone._result_cache[0]
+        if not num:
+>           raise self.model.DoesNotExist(
+                "%s matching query does not exist." %
+                self.model._meta.object_name
+            )
+E           users.models.User.DoesNotExist: User matching query does not exist.
+
+venv\lib\site-packages\django\db\models\query.py:406: DoesNotExist
+------------------------------ Captured log call ------------------------------
+WARNING  django.request:log.py:222 Forbidden: /api/v1/users/
+_____________ Test01UserAPI.test_07_01_users_username_patch_admin _____________
+
+self = <tests.test_01_users.Test01UserAPI object at 0x0000026F0A61C850>
+admin_client = <rest_framework.test.APIClient object at 0x0000026F0A5DB310>
+admin = <User: TestAdmin>
+
+    @pytest.mark.django_db(transaction=True)
+    def test_07_01_users_username_patch_admin(self, admin_client, admin):
+>       user, moderator = create_users_api(admin_client)
+
+tests\test_01_users.py:326: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\common.py:13: in create_users_api
+    user = get_user_model().objects.get(username=data['username'])
+venv\lib\site-packages\django\db\models\manager.py:82: in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <QuerySet [<User: TestAdmin>]>, args = ()
+kwargs = {'username': 'TestUser'}, clone = <QuerySet []>, num = 0
+
+    def get(self, *args, **kwargs):
+        """
+        Perform the query and return a single object matching the given
+        keyword arguments.
+        """
+        clone = self.filter(*args, **kwargs)
+        if self.query.can_filter() and not self.query.distinct_fields:
+            clone = clone.order_by()
+        num = len(clone)
+        if num == 1:
+            return clone._result_cache[0]
+        if not num:
+>           raise self.model.DoesNotExist(
+                "%s matching query does not exist." %
+                self.model._meta.object_name
+            )
+E           users.models.User.DoesNotExist: User matching query does not exist.
+
+venv\lib\site-packages\django\db\models\query.py:406: DoesNotExist
+------------------------------ Captured log call ------------------------------
+WARNING  django.request:log.py:222 Forbidden: /api/v1/users/
+____________ Test01UserAPI.test_08_01_users_username_delete_admin _____________
+
+self = <tests.test_01_users.Test01UserAPI object at 0x0000026F0A5B57F0>
+admin_client = <rest_framework.test.APIClient object at 0x0000026F0AE15F10>
+
+    @pytest.mark.django_db(transaction=True)
+    def test_08_01_users_username_delete_admin(self, admin_client):
+>       user, moderator = create_users_api(admin_client)
+
+tests\test_01_users.py:398: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\common.py:13: in create_users_api
+    user = get_user_model().objects.get(username=data['username'])
+venv\lib\site-packages\django\db\models\manager.py:82: in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <QuerySet [<User: TestAdmin>]>, args = ()
+kwargs = {'username': 'TestUser'}, clone = <QuerySet []>, num = 0
+
+    def get(self, *args, **kwargs):
+        """
+        Perform the query and return a single object matching the given
+        keyword arguments.
+        """
+        clone = self.filter(*args, **kwargs)
+        if self.query.can_filter() and not self.query.distinct_fields:
+            clone = clone.order_by()
+        num = len(clone)
+        if num == 1:
+            return clone._result_cache[0]
+        if not num:
+>           raise self.model.DoesNotExist(
+                "%s matching query does not exist." %
+                self.model._meta.object_name
+            )
+E           users.models.User.DoesNotExist: User matching query does not exist.
+
+venv\lib\site-packages\django\db\models\query.py:406: DoesNotExist
+------------------------------ Captured log call ------------------------------
+WARNING  django.request:log.py:222 Forbidden: /api/v1/users/
+________________ Test01UserAPI.test_09_users_check_permissions ________________
+
+self = <tests.test_01_users.Test01UserAPI object at 0x0000026F0A5D5F70>
+admin_client = <rest_framework.test.APIClient object at 0x0000026F0ADD3C70>
+admin = <User: TestAdmin>
+
+    @pytest.mark.django_db(transaction=True)
+    def test_09_users_check_permissions(self, admin_client, admin):
+>       user, moderator = create_users_api(admin_client)
+
+tests\test_01_users.py:488: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\common.py:13: in create_users_api
+    user = get_user_model().objects.get(username=data['username'])
+venv\lib\site-packages\django\db\models\manager.py:82: in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <QuerySet [<User: TestAdmin>]>, args = ()
+kwargs = {'username': 'TestUser'}, clone = <QuerySet []>, num = 0
+
+    def get(self, *args, **kwargs):
+        """
+        Perform the query and return a single object matching the given
+        keyword arguments.
+        """
+        clone = self.filter(*args, **kwargs)
+        if self.query.can_filter() and not self.query.distinct_fields:
+            clone = clone.order_by()
+        num = len(clone)
+        if num == 1:
+            return clone._result_cache[0]
+        if not num:
+>           raise self.model.DoesNotExist(
+                "%s matching query does not exist." %
+                self.model._meta.object_name
+            )
+E           users.models.User.DoesNotExist: User matching query does not exist.
+
+venv\lib\site-packages\django\db\models\query.py:406: DoesNotExist
+------------------------------ Captured log call ------------------------------
+WARNING  django.request:log.py:222 Forbidden: /api/v1/users/
+__________________ Test01UserAPI.test_10_users_me_get_admin ___________________
+
+self = <tests.test_01_users.Test01UserAPI object at 0x0000026F0A5F52B0>
+admin_client = <rest_framework.test.APIClient object at 0x0000026F0A572610>
+admin = <User: TestAdmin>
+
+    @pytest.mark.django_db(transaction=True)
+    def test_10_users_me_get_admin(self, admin_client, admin):
+>       user, moderator = create_users_api(admin_client)
+
+tests\test_01_users.py:494: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\common.py:13: in create_users_api
+    user = get_user_model().objects.get(username=data['username'])
+venv\lib\site-packages\django\db\models\manager.py:82: in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <QuerySet [<User: TestAdmin>]>, args = ()
+kwargs = {'username': 'TestUser'}, clone = <QuerySet []>, num = 0
+
+    def get(self, *args, **kwargs):
+        """
+        Perform the query and return a single object matching the given
+        keyword arguments.
+        """
+        clone = self.filter(*args, **kwargs)
+        if self.query.can_filter() and not self.query.distinct_fields:
+            clone = clone.order_by()
+        num = len(clone)
+        if num == 1:
+            return clone._result_cache[0]
+        if not num:
+>           raise self.model.DoesNotExist(
+                "%s matching query does not exist." %
+                self.model._meta.object_name
+            )
+E           users.models.User.DoesNotExist: User matching query does not exist.
+
+venv\lib\site-packages\django\db\models\query.py:406: DoesNotExist
+------------------------------ Captured log call ------------------------------
+WARNING  django.request:log.py:222 Forbidden: /api/v1/users/
+________________ Test01UserAPI.test_11_01_users_me_patch_admin ________________
+
+self = <tests.test_01_users.Test01UserAPI object at 0x0000026F0AA14070>
+admin_client = <rest_framework.test.APIClient object at 0x0000026F0A5A7100>
+
+    @pytest.mark.django_db(transaction=True)
+    def test_11_01_users_me_patch_admin(self, admin_client):
+>       user, moderator = create_users_api(admin_client)
+
+tests\test_01_users.py:528: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\common.py:13: in create_users_api
+    user = get_user_model().objects.get(username=data['username'])
+venv\lib\site-packages\django\db\models\manager.py:82: in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <QuerySet [<User: TestAdmin>]>, args = ()
+kwargs = {'username': 'TestUser'}, clone = <QuerySet []>, num = 0
+
+    def get(self, *args, **kwargs):
+        """
+        Perform the query and return a single object matching the given
+        keyword arguments.
+        """
+        clone = self.filter(*args, **kwargs)
+        if self.query.can_filter() and not self.query.distinct_fields:
+            clone = clone.order_by()
+        num = len(clone)
+        if num == 1:
+            return clone._result_cache[0]
+        if not num:
+>           raise self.model.DoesNotExist(
+                "%s matching query does not exist." %
+                self.model._meta.object_name
+            )
+E           users.models.User.DoesNotExist: User matching query does not exist.
+
+venv\lib\site-packages\django\db\models\query.py:406: DoesNotExist
+------------------------------ Captured log call ------------------------------
+WARNING  django.request:log.py:222 Forbidden: /api/v1/users/
+________________ Test01UserAPI.test_11_02_users_me_patch_user _________________
+
+self = <tests.test_01_users.Test01UserAPI object at 0x0000026F0A4D2B50>
+user_client = <rest_framework.test.APIClient object at 0x0000026F0AA66700>
+
+    @pytest.mark.django_db(transaction=True)
+    def test_11_02_users_me_patch_user(self, user_client):
+        data = {
+            'first_name': 'New user first name',
+            'last_name': 'New user last name',
+            'bio': 'new user bio',
+        }
+        response = user_client.patch('/api/v1/users/me/', data=data)
+        assert response.status_code == 200, (
+            'Проверьте, что при PATCH запросе `/api/v1/users/me/`, '
+            'пользователь с ролью user может изменить свои данные, и возвращается статус 200'
+        )
+    
+        data = {
+            'role': 'admin'
+        }
+        response = user_client.patch('/api/v1/users/me/', data=data)
+        response_json = response.json()
+>       assert response_json.get('role') == 'user', (
+            'Проверьте, что при PATCH запросе `/api/v1/users/me/`, '
+            'пользователь с ролью user не может сменить себе роль'
+        )
+E       AssertionError: Проверьте, что при PATCH запросе `/api/v1/users/me/`, пользователь с ролью user не может сменить себе роль
+E       assert 'admin' == 'user'
+E         - user
+E         + admin
+
+tests\test_01_users.py:570: AssertionError
+__________ Test02CategoryAPI.test_04_category_check_permission_admin __________
+
+self = <tests.test_02_category.Test02CategoryAPI object at 0x0000026F0A8985B0>
+client = <django.test.client.Client object at 0x0000026F0B10FEE0>
+admin_client = <rest_framework.test.APIClient object at 0x0000026F0AE15C70>
+
+    @pytest.mark.django_db(transaction=True)
+    def test_04_category_check_permission_admin(self, client, admin_client):
+        categories = create_categories(admin_client)
+        data = {
+            'name': 'Музыка',
+            'slug': 'music'
+        }
+        response = client.post('/api/v1/categories/', data=data)
+        assert response.status_code == 401, (
+            'Проверьте, что при POST запросе `/api/v1/categories/` '
+            'без токена авторизации возвращается статус 401'
+        )
+        response = client.delete(f'/api/v1/categories/{categories[0]["slug"]}/')
+        assert response.status_code == 401, (
+            'Проверьте, что при DELETE запросе `/api/v1/categories/{{slug}}/` '
+            'без токена авторизации возвращается статус 401'
+        )
+>       user, moderator = create_users_api(admin_client)
+
+tests\test_02_category.py:150: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\common.py:13: in create_users_api
+    user = get_user_model().objects.get(username=data['username'])
+venv\lib\site-packages\django\db\models\manager.py:82: in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <QuerySet [<User: TestAdmin>]>, args = ()
+kwargs = {'username': 'TestUser'}, clone = <QuerySet []>, num = 0
+
+    def get(self, *args, **kwargs):
+        """
+        Perform the query and return a single object matching the given
+        keyword arguments.
+        """
+        clone = self.filter(*args, **kwargs)
+        if self.query.can_filter() and not self.query.distinct_fields:
+            clone = clone.order_by()
+        num = len(clone)
+        if num == 1:
+            return clone._result_cache[0]
+        if not num:
+>           raise self.model.DoesNotExist(
+                "%s matching query does not exist." %
+                self.model._meta.object_name
+            )
+E           users.models.User.DoesNotExist: User matching query does not exist.
+
+venv\lib\site-packages\django\db\models\query.py:406: DoesNotExist
+------------------------------ Captured log call ------------------------------
+WARNING  django.request:log.py:222 Unauthorized: /api/v1/categories/
+WARNING  django.request:log.py:222 Unauthorized: /api/v1/categories/films/
+WARNING  django.request:log.py:222 Forbidden: /api/v1/users/
+_______________ Test03GenreAPI.test_04_genres_check_permission ________________
+
+self = <tests.test_03_genre.Test03GenreAPI object at 0x0000026F0A51EEE0>
+client = <django.test.client.Client object at 0x0000026F0A5723A0>
+admin_client = <rest_framework.test.APIClient object at 0x0000026F0A5BEFD0>
+
+    @pytest.mark.django_db(transaction=True)
+    def test_04_genres_check_permission(self, client, admin_client):
+        genres = create_genre(admin_client)
+        data = {
+            'name': 'Боевик',
+            'slug': 'action'
+        }
+        response = client.post('/api/v1/genres/', data=data)
+        assert response.status_code == 401, (
+            'Проверьте, что при POST запросе `/api/v1/genres/` '
+            'без токена авторизации возвращается статус 401'
+        )
+        response = client.delete(f'/api/v1/genres/{genres[0]["slug"]}/')
+        assert response.status_code == 401, (
+            'Проверьте, что при DELETE запросе `/api/v1/genres/{{slug}}/` '
+            'без токена авторизации возвращается статус 401'
+        )
+>       user, moderator = create_users_api(admin_client)
+
+tests\test_03_genre.py:138: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\common.py:13: in create_users_api
+    user = get_user_model().objects.get(username=data['username'])
+venv\lib\site-packages\django\db\models\manager.py:82: in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <QuerySet [<User: TestAdmin>]>, args = ()
+kwargs = {'username': 'TestUser'}, clone = <QuerySet []>, num = 0
+
+    def get(self, *args, **kwargs):
+        """
+        Perform the query and return a single object matching the given
+        keyword arguments.
+        """
+        clone = self.filter(*args, **kwargs)
+        if self.query.can_filter() and not self.query.distinct_fields:
+            clone = clone.order_by()
+        num = len(clone)
+        if num == 1:
+            return clone._result_cache[0]
+        if not num:
+>           raise self.model.DoesNotExist(
+                "%s matching query does not exist." %
+                self.model._meta.object_name
+            )
+E           users.models.User.DoesNotExist: User matching query does not exist.
+
+venv\lib\site-packages\django\db\models\query.py:406: DoesNotExist
+------------------------------ Captured log call ------------------------------
+WARNING  django.request:log.py:222 Unauthorized: /api/v1/genres/
+WARNING  django.request:log.py:222 Unauthorized: /api/v1/genres/horror/
+WARNING  django.request:log.py:222 Forbidden: /api/v1/users/
+_____________________ Test04TitleAPI.test_02_title_admin ______________________
+
+self = <tests.test_04_title.Test04TitleAPI object at 0x0000026F0AD4A370>
+admin_client = <rest_framework.test.APIClient object at 0x0000026F0A4FCE20>
+
+    @pytest.mark.django_db(transaction=True)
+    def test_02_title_admin(self, admin_client):
+        genres = create_genre(admin_client)
+        categories = create_categories(admin_client)
+        data = {}
+        response = admin_client.post('/api/v1/titles/', data=data)
+        assert response.status_code == 400, (
+            'Проверьте, что при POST запросе `/api/v1/titles/` с не правильными данными возвращает статус 400'
+        )
+        data = {'name': 'Поворот туда', 'year': 2000, 'genre': [genres[0]['slug'], genres[1]['slug']],
+                'category': categories[0]['slug'], 'description': 'Крутое пике'}
+        response = admin_client.post('/api/v1/titles/', data=data)
+        assert response.status_code == 201, (
+            'Проверьте, что при POST запросе `/api/v1/titles/` с правильными данными возвращает статус 201'
+        )
+        data = {'name': 'Проект', 'year': 2020, 'genre': [genres[2]['slug']], 'category': categories[1]['slug'],
+                'description': 'Главная драма года'}
+        response = admin_client.post('/api/v1/titles/', data=data)
+        assert response.status_code == 201, (
+            'Проверьте, что при POST запросе `/api/v1/titles/` с правильными данными возвращает статус 201'
+        )
+        assert type(response.json().get('id')) == int, (
+            'Проверьте, что при POST запросе `/api/v1/titles/` возвращаете данные созданного объекта. '
+            'Значение `id` нет или не является целым числом.'
+        )
+        response = admin_client.get('/api/v1/titles/')
+        assert response.status_code == 200, (
+            'Проверьте, что при GET запросе `/api/v1/titles/` возвращает статус 200'
+        )
+        data = response.json()
+        assert 'count' in data, (
+            'Проверьте, что при GET запросе `/api/v1/titles/` возвращаете данные с пагинацией. '
+            'Не найден параметр `count`'
+        )
+        assert 'next' in data, (
+            'Проверьте, что при GET запросе `/api/v1/titles/` возвращаете данные с пагинацией. '
+            'Не найден параметр `next`'
+        )
+        assert 'previous' in data, (
+            'Проверьте, что при GET запросе `/api/v1/titles/` возвращаете данные с пагинацией. '
+            'Не найден параметр `previous`'
+        )
+        assert 'results' in data, (
+            'Проверьте, что при GET запросе `/api/v1/titles/` возвращаете данные с пагинацией. '
+            'Не найден параметр `results`'
+        )
+        assert data['count'] == 2, (
+            'Проверьте, что при GET запросе `/api/v1/titles/` возвращаете данные с пагинацией. '
+            'Значение параметра `count` не правильное'
+        )
+        assert type(data['results']) == list, (
+            'Проверьте, что при GET запросе `/api/v1/titles/` возвращаете данные с пагинацией. '
+            'Тип параметра `results` должен быть список'
+        )
+        assert len(data['results']) == 2, (
+            'Проверьте, что при GET запросе `/api/v1/titles/` возвращаете данные с пагинацией. '
+            'Значение параметра `results` не правильное'
+        )
+        if data['results'][0].get('name') == 'Поворот туда':
+            title = data['results'][0]
+        elif data['results'][1].get('name') == 'Поворот туда':
+            title = data['results'][1]
+        else:
+            assert False, (
+                'Проверьте, что при GET запросе `/api/v1/titles/` возвращаете данные с пагинацией. '
+                'Значение параметра `results` неправильное, `name` не найдено или не сохранилось при POST запросе.'
+            )
+    
+        assert title.get('rating') is None, (
+            'Проверьте, что при GET запросе `/api/v1/titles/` возвращаете данные с пагинацией. '
+            'Значение параметра `results` неправильное, `rating` без отзывов должен быть равен `None`'
+        )
+        assert title.get('category') == categories[0], (
+            'Проверьте, что при GET запросе `/api/v1/titles/` возвращаете данные с пагинацией. '
+            'Значение параметра `results` неправильное, значение `category` неправильное '
+            'или не сохранилось при POST запросе.'
+        )
+        assert genres[0] in title.get('genre', []) and genres[1] in title.get('genre', []), (
+            'Проверьте, что при GET запросе `/api/v1/titles/` возвращаете данные с пагинацией. '
+            'Значение параметра `results` неправильное, значение `genre` неправильное '
+            'или не сохранилось при POST запросе.'
+        )
+        assert title.get('year') == 2000, (
+            'Проверьте, что при GET запросе `/api/v1/titles/` возвращаете данные с пагинацией. '
+            'Значение параметра `results` неправильное, значение `year` неправильное '
+            'или не сохранилось при POST запросе.'
+        )
+        assert title.get('description') == 'Крутое пике', (
+            'Проверьте, что при GET запросе `/api/v1/titles/` возвращаете данные с пагинацией. '
+            'Значение параметра `results` неправильное, значение `description` неправильное '
+            'или не сохранилось при POST запросе.'
+        )
+        assert type(title.get('id')) == int, (
+            'Проверьте, что при GET запросе `/api/v1/titles/` возвращаете данные с пагинацией. '
+            'Значение параметра `results` неправильное, значение `id` нет или не является целым числом.'
+        )
+        data = {'name': 'Поворот', 'year': 2020, 'genre': [genres[1]['slug']],
+                'category': categories[1]['slug'], 'description': 'Крутое пике'}
+        admin_client.post('/api/v1/titles/', data=data)
+        response = admin_client.get(f'/api/v1/titles/?genre={genres[1]["slug"]}')
+        data = response.json()
+        assert len(data['results']) == 2, (
+            'Проверьте, что при GET запросе `/api/v1/titles/` фильтуется по `genre` параметру `slug` жанра'
+        )
+        response = admin_client.get(f'/api/v1/titles/?category={categories[0]["slug"]}')
+        data = response.json()
+        assert len(data['results']) == 1, (
+            'Проверьте, что при GET запросе `/api/v1/titles/` фильтуется по `category` параметру `slug` категории'
+        )
+        response = admin_client.get('/api/v1/titles/?year=2000')
+        data = response.json()
+        assert len(data['results']) == 1, (
+            'Проверьте, что при GET запросе `/api/v1/titles/` фильтуется по `year` параметру года'
+        )
+        response = admin_client.get('/api/v1/titles/?name=Поворот')
+        data = response.json()
+>       assert len(data['results']) == 2, (
+            'Проверьте, что при GET запросе `/api/v1/titles/` фильтуется по `name` параметру названия'
+        )
+E       AssertionError: Проверьте, что при GET запросе `/api/v1/titles/` фильтуется по `name` параметру названия
+E       assert 1 == 2
+E         +1
+E         -2
+
+tests\test_04_title.py:135: AssertionError
+------------------------------ Captured log call ------------------------------
+WARNING  django.request:log.py:222 Bad Request: /api/v1/titles/
+_______________ Test04TitleAPI.test_04_titles_check_permission ________________
+
+self = <tests.test_04_title.Test04TitleAPI object at 0x0000026F0A505D30>
+client = <django.test.client.Client object at 0x0000026F0A8B7340>
+admin_client = <rest_framework.test.APIClient object at 0x0000026F0A57A8E0>
+
+    @pytest.mark.django_db(transaction=True)
+    def test_04_titles_check_permission(self, client, admin_client):
+        titles, categories, genres = create_titles(admin_client)
+        data = {'name': 'Чудо юдо', 'year': 1999, 'genre': [genres[2]['slug'], genres[1]['slug']],
+                'category': categories[0]['slug'], 'description': 'Бум'}
+        response = client.post('/api/v1/titles/', data=data)
+        assert response.status_code == 401, (
+            'Проверьте, что при POST запросе `/api/v1/titles/` '
+            'без токена авторизации возвращается статус 401'
+        )
+        response = client.patch(f'/api/v1/titles/{titles[0]["id"]}/', data=data)
+        assert response.status_code == 401, (
+            'Проверьте, что при PATCH запросе `/api/v1/titles/{{title_id}}/` '
+            'без токена авторизации возвращается статус 401'
+        )
+        response = client.delete(f'/api/v1/titles/{titles[0]["id"]}/')
+        assert response.status_code == 401, (
+            'Проверьте, что при DELETE запросе `/api/v1/titles/{{title_id}}/` '
+            'без токена авторизации возвращается статус 401'
+        )
+>       user, moderator = create_users_api(admin_client)
+
+tests\test_04_title.py:249: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\common.py:13: in create_users_api
+    user = get_user_model().objects.get(username=data['username'])
+venv\lib\site-packages\django\db\models\manager.py:82: in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <QuerySet [<User: TestAdmin>]>, args = ()
+kwargs = {'username': 'TestUser'}, clone = <QuerySet []>, num = 0
+
+    def get(self, *args, **kwargs):
+        """
+        Perform the query and return a single object matching the given
+        keyword arguments.
+        """
+        clone = self.filter(*args, **kwargs)
+        if self.query.can_filter() and not self.query.distinct_fields:
+            clone = clone.order_by()
+        num = len(clone)
+        if num == 1:
+            return clone._result_cache[0]
+        if not num:
+>           raise self.model.DoesNotExist(
+                "%s matching query does not exist." %
+                self.model._meta.object_name
+            )
+E           users.models.User.DoesNotExist: User matching query does not exist.
+
+venv\lib\site-packages\django\db\models\query.py:406: DoesNotExist
+------------------------------ Captured log call ------------------------------
+WARNING  django.request:log.py:222 Unauthorized: /api/v1/titles/
+WARNING  django.request:log.py:222 Unauthorized: /api/v1/titles/6/
+WARNING  django.request:log.py:222 Unauthorized: /api/v1/titles/6/
+WARNING  django.request:log.py:222 Forbidden: /api/v1/users/
+____________________ Test05ReviewAPI.test_02_review_admin _____________________
+
+self = <tests.test_05_review.Test05ReviewAPI object at 0x0000026F0AD25970>
+admin_client = <rest_framework.test.APIClient object at 0x0000026F0AA662E0>
+admin = <User: TestAdmin>
+
+    @pytest.mark.django_db(transaction=True)
+    def test_02_review_admin(self, admin_client, admin):
+        titles, _, _ = create_titles(admin_client)
+>       user, moderator = create_users_api(admin_client)
+
+tests\test_05_review.py:33: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\common.py:13: in create_users_api
+    user = get_user_model().objects.get(username=data['username'])
+venv\lib\site-packages\django\db\models\manager.py:82: in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <QuerySet [<User: TestAdmin>]>, args = ()
+kwargs = {'username': 'TestUser'}, clone = <QuerySet []>, num = 0
+
+    def get(self, *args, **kwargs):
+        """
+        Perform the query and return a single object matching the given
+        keyword arguments.
+        """
+        clone = self.filter(*args, **kwargs)
+        if self.query.can_filter() and not self.query.distinct_fields:
+            clone = clone.order_by()
+        num = len(clone)
+        if num == 1:
+            return clone._result_cache[0]
+        if not num:
+>           raise self.model.DoesNotExist(
+                "%s matching query does not exist." %
+                self.model._meta.object_name
+            )
+E           users.models.User.DoesNotExist: User matching query does not exist.
+
+venv\lib\site-packages\django\db\models\query.py:406: DoesNotExist
+------------------------------ Captured log call ------------------------------
+WARNING  django.request:log.py:222 Forbidden: /api/v1/users/
+____________________ Test05ReviewAPI.test_03_review_detail ____________________
+
+self = <tests.test_05_review.Test05ReviewAPI object at 0x0000026F0A5610A0>
+client = <django.test.client.Client object at 0x0000026F0B14D8B0>
+admin_client = <rest_framework.test.APIClient object at 0x0000026F0B14DD60>
+admin = <User: TestAdmin>
+
+    @pytest.mark.django_db(transaction=True)
+    def test_03_review_detail(self, client, admin_client, admin):
+>       reviews, titles, user, moderator = create_reviews(admin_client, admin)
+
+tests\test_05_review.py:202: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\common.py:86: in create_reviews
+    user, moderator = create_users_api(admin_client)
+tests\common.py:13: in create_users_api
+    user = get_user_model().objects.get(username=data['username'])
+venv\lib\site-packages\django\db\models\manager.py:82: in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <QuerySet [<User: TestAdmin>]>, args = ()
+kwargs = {'username': 'TestUser'}, clone = <QuerySet []>, num = 0
+
+    def get(self, *args, **kwargs):
+        """
+        Perform the query and return a single object matching the given
+        keyword arguments.
+        """
+        clone = self.filter(*args, **kwargs)
+        if self.query.can_filter() and not self.query.distinct_fields:
+            clone = clone.order_by()
+        num = len(clone)
+        if num == 1:
+            return clone._result_cache[0]
+        if not num:
+>           raise self.model.DoesNotExist(
+                "%s matching query does not exist." %
+                self.model._meta.object_name
+            )
+E           users.models.User.DoesNotExist: User matching query does not exist.
+
+venv\lib\site-packages\django\db\models\query.py:406: DoesNotExist
+------------------------------ Captured log call ------------------------------
+WARNING  django.request:log.py:222 Forbidden: /api/v1/users/
+______________ Test05ReviewAPI.test_04_reviews_check_permission _______________
+
+self = <tests.test_05_review.Test05ReviewAPI object at 0x0000026F0A898E80>
+client = <django.test.client.Client object at 0x0000026F0B15E130>
+admin_client = <rest_framework.test.APIClient object at 0x0000026F0B15E370>
+admin = <User: TestAdmin>
+
+    @pytest.mark.django_db(transaction=True)
+    def test_04_reviews_check_permission(self, client, admin_client, admin):
+>       reviews, titles, user, moderator = create_reviews(admin_client, admin)
+
+tests\test_05_review.py:319: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\common.py:86: in create_reviews
+    user, moderator = create_users_api(admin_client)
+tests\common.py:13: in create_users_api
+    user = get_user_model().objects.get(username=data['username'])
+venv\lib\site-packages\django\db\models\manager.py:82: in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <QuerySet [<User: TestAdmin>]>, args = ()
+kwargs = {'username': 'TestUser'}, clone = <QuerySet []>, num = 0
+
+    def get(self, *args, **kwargs):
+        """
+        Perform the query and return a single object matching the given
+        keyword arguments.
+        """
+        clone = self.filter(*args, **kwargs)
+        if self.query.can_filter() and not self.query.distinct_fields:
+            clone = clone.order_by()
+        num = len(clone)
+        if num == 1:
+            return clone._result_cache[0]
+        if not num:
+>           raise self.model.DoesNotExist(
+                "%s matching query does not exist." %
+                self.model._meta.object_name
+            )
+E           users.models.User.DoesNotExist: User matching query does not exist.
+
+venv\lib\site-packages\django\db\models\query.py:406: DoesNotExist
+------------------------------ Captured log call ------------------------------
+WARNING  django.request:log.py:222 Forbidden: /api/v1/users/
+__________________ Test06CommentAPI.test_01_comment_not_auth __________________
+
+self = <tests.test_06_comment.Test06CommentAPI object at 0x0000026F0A5A7160>
+client = <django.test.client.Client object at 0x0000026F0AF1A0D0>
+admin_client = <rest_framework.test.APIClient object at 0x0000026F0AA72B80>
+admin = <User: TestAdmin>
+
+    @pytest.mark.django_db(transaction=True)
+    def test_01_comment_not_auth(self, client, admin_client, admin):
+>       reviews, titles, _, _ = create_reviews(admin_client, admin)
+
+tests\test_06_comment.py:10: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\common.py:86: in create_reviews
+    user, moderator = create_users_api(admin_client)
+tests\common.py:13: in create_users_api
+    user = get_user_model().objects.get(username=data['username'])
+venv\lib\site-packages\django\db\models\manager.py:82: in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <QuerySet [<User: TestAdmin>]>, args = ()
+kwargs = {'username': 'TestUser'}, clone = <QuerySet []>, num = 0
+
+    def get(self, *args, **kwargs):
+        """
+        Perform the query and return a single object matching the given
+        keyword arguments.
+        """
+        clone = self.filter(*args, **kwargs)
+        if self.query.can_filter() and not self.query.distinct_fields:
+            clone = clone.order_by()
+        num = len(clone)
+        if num == 1:
+            return clone._result_cache[0]
+        if not num:
+>           raise self.model.DoesNotExist(
+                "%s matching query does not exist." %
+                self.model._meta.object_name
+            )
+E           users.models.User.DoesNotExist: User matching query does not exist.
+
+venv\lib\site-packages\django\db\models\query.py:406: DoesNotExist
+------------------------------ Captured log call ------------------------------
+WARNING  django.request:log.py:222 Forbidden: /api/v1/users/
+______________________ Test06CommentAPI.test_02_comment _______________________
+
+self = <tests.test_06_comment.Test06CommentAPI object at 0x0000026F0A89DC40>
+admin_client = <rest_framework.test.APIClient object at 0x0000026F0AEF8FD0>
+admin = <User: TestAdmin>
+
+    @pytest.mark.django_db(transaction=True)
+    def test_02_comment(self, admin_client, admin):
+>       reviews, titles, user, moderator = create_reviews(admin_client, admin)
+
+tests\test_06_comment.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\common.py:86: in create_reviews
+    user, moderator = create_users_api(admin_client)
+tests\common.py:13: in create_users_api
+    user = get_user_model().objects.get(username=data['username'])
+venv\lib\site-packages\django\db\models\manager.py:82: in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <QuerySet [<User: TestAdmin>]>, args = ()
+kwargs = {'username': 'TestUser'}, clone = <QuerySet []>, num = 0
+
+    def get(self, *args, **kwargs):
+        """
+        Perform the query and return a single object matching the given
+        keyword arguments.
+        """
+        clone = self.filter(*args, **kwargs)
+        if self.query.can_filter() and not self.query.distinct_fields:
+            clone = clone.order_by()
+        num = len(clone)
+        if num == 1:
+            return clone._result_cache[0]
+        if not num:
+>           raise self.model.DoesNotExist(
+                "%s matching query does not exist." %
+                self.model._meta.object_name
+            )
+E           users.models.User.DoesNotExist: User matching query does not exist.
+
+venv\lib\site-packages\django\db\models\query.py:406: DoesNotExist
+------------------------------ Captured log call ------------------------------
+WARNING  django.request:log.py:222 Forbidden: /api/v1/users/
+___________________ Test06CommentAPI.test_03_review_detail ____________________
+
+self = <tests.test_06_comment.Test06CommentAPI object at 0x0000026F0AF1CF40>
+client = <django.test.client.Client object at 0x0000026F0AE3B730>
+admin_client = <rest_framework.test.APIClient object at 0x0000026F0A572580>
+admin = <User: TestAdmin>
+
+    @pytest.mark.django_db(transaction=True)
+    def test_03_review_detail(self, client, admin_client, admin):
+>       comments, reviews, titles, user, moderator = create_comments(admin_client, admin)
+
+tests\test_06_comment.py:132: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\common.py:105: in create_comments
+    reviews, titles, user, moderator = create_reviews(admin_client, admin)
+tests\common.py:86: in create_reviews
+    user, moderator = create_users_api(admin_client)
+tests\common.py:13: in create_users_api
+    user = get_user_model().objects.get(username=data['username'])
+venv\lib\site-packages\django\db\models\manager.py:82: in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <QuerySet [<User: TestAdmin>]>, args = ()
+kwargs = {'username': 'TestUser'}, clone = <QuerySet []>, num = 0
+
+    def get(self, *args, **kwargs):
+        """
+        Perform the query and return a single object matching the given
+        keyword arguments.
+        """
+        clone = self.filter(*args, **kwargs)
+        if self.query.can_filter() and not self.query.distinct_fields:
+            clone = clone.order_by()
+        num = len(clone)
+        if num == 1:
+            return clone._result_cache[0]
+        if not num:
+>           raise self.model.DoesNotExist(
+                "%s matching query does not exist." %
+                self.model._meta.object_name
+            )
+E           users.models.User.DoesNotExist: User matching query does not exist.
+
+venv\lib\site-packages\django\db\models\query.py:406: DoesNotExist
+------------------------------ Captured log call ------------------------------
+WARNING  django.request:log.py:222 Forbidden: /api/v1/users/
+______________ Test06CommentAPI.test_04_comment_check_permission ______________
+
+self = <tests.test_06_comment.Test06CommentAPI object at 0x0000026F0A581070>
+client = <django.test.client.Client object at 0x0000026F0AF20B80>
+admin_client = <rest_framework.test.APIClient object at 0x0000026F0AF20280>
+admin = <User: TestAdmin>
+
+    @pytest.mark.django_db(transaction=True)
+    def test_04_comment_check_permission(self, client, admin_client, admin):
+>       comments, reviews, titles, user, moderator = create_comments(admin_client, admin)
+
+tests\test_06_comment.py:228: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\common.py:105: in create_comments
+    reviews, titles, user, moderator = create_reviews(admin_client, admin)
+tests\common.py:86: in create_reviews
+    user, moderator = create_users_api(admin_client)
+tests\common.py:13: in create_users_api
+    user = get_user_model().objects.get(username=data['username'])
+venv\lib\site-packages\django\db\models\manager.py:82: in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <QuerySet [<User: TestAdmin>]>, args = ()
+kwargs = {'username': 'TestUser'}, clone = <QuerySet []>, num = 0
+
+    def get(self, *args, **kwargs):
+        """
+        Perform the query and return a single object matching the given
+        keyword arguments.
+        """
+        clone = self.filter(*args, **kwargs)
+        if self.query.can_filter() and not self.query.distinct_fields:
+            clone = clone.order_by()
+        num = len(clone)
+        if num == 1:
+            return clone._result_cache[0]
+        if not num:
+>           raise self.model.DoesNotExist(
+                "%s matching query does not exist." %
+                self.model._meta.object_name
+            )
+E           users.models.User.DoesNotExist: User matching query does not exist.
+
+venv\lib\site-packages\django\db\models\query.py:406: DoesNotExist
+------------------------------ Captured log call ------------------------------
+WARNING  django.request:log.py:222 Forbidden: /api/v1/users/
+-------------------------- Captured stderr teardown ---------------------------
+Destroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+=========================== short test summary info ===========================
+FAILED tests/test_00_user_registration.py::Test00UserRegistration::test_00_valid_data_user_signup
+FAILED tests/test_00_user_registration.py::Test00UserRegistration::test_00_valid_data_admin_create_user
+FAILED tests/test_00_user_registration.py::Test00UserRegistration::test_00_obtain_jwt_token_invalid_data
+FAILED tests/test_00_user_registration.py::Test00UserRegistration::test_00_registration_me_username_restricted
+FAILED tests/test_00_user_registration.py::Test00UserRegistration::test_00_registration_same_email_restricted
+FAILED tests/test_01_users.py::Test01UserAPI::test_04_users_get_admin - Asser...
+FAILED tests/test_01_users.py::Test01UserAPI::test_04_02_users_get_search - A...
+FAILED tests/test_01_users.py::Test01UserAPI::test_05_01_users_post_admin - A...
+FAILED tests/test_01_users.py::Test01UserAPI::test_06_users_username_get_admin
+FAILED tests/test_01_users.py::Test01UserAPI::test_07_01_users_username_patch_admin
+FAILED tests/test_01_users.py::Test01UserAPI::test_08_01_users_username_delete_admin
+FAILED tests/test_01_users.py::Test01UserAPI::test_09_users_check_permissions
+FAILED tests/test_01_users.py::Test01UserAPI::test_10_users_me_get_admin - us...
+FAILED tests/test_01_users.py::Test01UserAPI::test_11_01_users_me_patch_admin
+FAILED tests/test_01_users.py::Test01UserAPI::test_11_02_users_me_patch_user
+FAILED tests/test_02_category.py::Test02CategoryAPI::test_04_category_check_permission_admin
+FAILED tests/test_03_genre.py::Test03GenreAPI::test_04_genres_check_permission
+FAILED tests/test_04_title.py::Test04TitleAPI::test_02_title_admin - Assertio...
+FAILED tests/test_04_title.py::Test04TitleAPI::test_04_titles_check_permission
+FAILED tests/test_05_review.py::Test05ReviewAPI::test_02_review_admin - users...
+FAILED tests/test_05_review.py::Test05ReviewAPI::test_03_review_detail - user...
+FAILED tests/test_05_review.py::Test05ReviewAPI::test_04_reviews_check_permission
+FAILED tests/test_06_comment.py::Test06CommentAPI::test_01_comment_not_auth
+FAILED tests/test_06_comment.py::Test06CommentAPI::test_02_comment - users.mo...
+FAILED tests/test_06_comment.py::Test06CommentAPI::test_03_review_detail - us...
+FAILED tests/test_06_comment.py::Test06CommentAPI::test_04_comment_check_permission
+======================== 26 failed, 27 passed in 6.16s ========================
