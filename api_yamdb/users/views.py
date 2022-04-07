@@ -1,25 +1,17 @@
-from django.forms import ValidationError
-from django.shortcuts import get_object_or_404
-from rest_framework.decorators import api_view, action, permission_classes
-from rest_framework.response import Response
-from rest_framework import filters, viewsets
 from django.contrib.auth.tokens import default_token_generator
-from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework import permissions, serializers
-from .models import User
 from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404
-from rest_framework import filters, viewsets, status
-from rest_framework.decorators import action, api_view
-from rest_framework.permissions import IsAdminUser, IsAuthenticated
+from rest_framework import filters, permissions, status, viewsets
+from rest_framework.decorators import action, api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from .permissions import AdminSuperuser, AdminUser
 from .models import User
+from .permissions import IsAdmin
 from .serializers import (
     ConfirmationCodeSerializer,
     EmailSerializer,
+    UserMeSerializer,
     UserSerializer,
 )
 
@@ -75,10 +67,12 @@ def send_token(request):
     user = get_object_or_404(User, username=username)
     if confirmation_code is None:
         return Response(
-            "Введите confirmation_code", status=status.HTTP_400_BAD_REQUEST
+            "Введите confirmation_code.", status=status.HTTP_400_BAD_REQUEST
         )
     if username is None:
-        return Response("Введите email", status=status.HTTP_400_BAD_REQUEST)
+        return Response(
+            "Введите имя пользователя.", status=status.HTTP_400_BAD_REQUEST
+        )
     token_check = default_token_generator.check_token(user, confirmation_code)
     if token_check is True:
         refresh = RefreshToken.for_user(user)
@@ -86,14 +80,14 @@ def send_token(request):
             f"Ваш токен:{refresh.access_token}", status=status.HTTP_200_OK
         )
     return Response(
-        "Неправильный confirmation_code", status=status.HTTP_400_BAD_REQUEST
+        "Неправильный confirmation_code.", status=status.HTTP_400_BAD_REQUEST
     )
 
 
 class UsersViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     filter_backends = (filters.SearchFilter, filters.OrderingFilter)
-    permission_classes = (AdminUser,)
+    permission_classes = (IsAdmin,)
     lookup_field = "username"
     queryset = User.objects.all()
     search_fields = ("username",)
@@ -105,6 +99,7 @@ class UsersViewSet(viewsets.ModelViewSet):
             "get",
             "patch",
         ),
+        serializer_class=UserMeSerializer,
         permission_classes=[permissions.IsAuthenticated],
         url_path="me",
         url_name="me",
@@ -113,11 +108,6 @@ class UsersViewSet(viewsets.ModelViewSet):
         user = self.request.user
         serializer = self.get_serializer(user)
         if request.method == "PATCH":
-            if request.user.role == "user" and "role" in request.data:
-                return Response(
-                    f"Вы не можете изменить это поле.",
-                    status=status.HTTP_400_BAD_REQUEST,
-                )
             serializer = self.get_serializer(
                 user, data=request.data, partial=True
             )

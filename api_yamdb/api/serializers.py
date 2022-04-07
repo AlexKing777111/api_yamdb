@@ -3,22 +3,31 @@ import datetime as dt
 from django.db.models import Avg
 from rest_framework import serializers
 from rest_framework.relations import SlugRelatedField
-
 from reviews.models import Category, Comment, Genre, Review, Title
 
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
+<<<<<<< HEAD
         fields = ('name', 'slug')
         lookup_field = 'slug'
+=======
+        fields = ("name", "slug")
+        lookup_field = "slug"
+>>>>>>> master
 
 
 class GenreSerializer(serializers.ModelSerializer):
     class Meta:
         model = Genre
+<<<<<<< HEAD
         fields = ('name', 'slug')
         lookup_field = 'slug'
+=======
+        fields = ("name", "slug")
+        lookup_field = "slug"
+>>>>>>> master
 
 
 class TitlePOSTSerializer(serializers.ModelSerializer):

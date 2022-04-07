@@ -24,3 +24,7 @@ class UserSerializer(serializers.ModelSerializer):
             "bio",
             "role",
         )
+
+
+class UserMeSerializer(UserSerializer):
+    role = serializers.CharField(read_only=True)
