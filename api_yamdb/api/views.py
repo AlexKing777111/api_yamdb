@@ -1,8 +1,9 @@
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import filters, mixins, viewsets
+from rest_framework import filters, mixins, viewsets, exceptions
 from rest_framework.generics import get_object_or_404
 from rest_framework.pagination import LimitOffsetPagination
 from reviews.models import Category, Genre, Review, Title
+from users.models import User
 
 from api.filters import TitleFilter
 from api.permissions import IsAdmin, ReadOnly, ReviewCommentPermission
@@ -23,7 +24,7 @@ class GetPostDelViewSet(
     viewsets.GenericViewSet,
 ):
     filter_backends = [filters.SearchFilter]
-    search_fields = ["name"]
+    search_fields = ("name", )
     permission_classes = (ReadOnly,)
     pagination_class = LimitOffsetPagination
 
@@ -77,18 +78,18 @@ class ReviewViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         title_id = self.kwargs.get("title_id")
         title = get_object_or_404(Title, id=title_id)
+        author = self.request.user
+        if Review.objects.filter(title=title, author=author).exists():
+            raise exceptions.ValidationError(
+                'Можно сделать только один отзыв к ревью'
+            )
         serializer.save(author=self.request.user, title=title)
-
-    def get_serializer_context(self):
-        context = super(ReviewViewSet, self).get_serializer_context()
-        title = get_object_or_404(Title, id=self.kwargs.get("title_id"))
-        context.update({"title": title})
-        return context
 
 
 class CommentViewSet(viewsets.ModelViewSet):
     serializer_class = CommentSerializer
     permission_classes = (ReviewCommentPermission,)
+    pagination_class = LimitOffsetPagination
 
     def get_queryset(self):
         review_id = self.kwargs.get("review_id")

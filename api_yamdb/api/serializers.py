@@ -3,20 +3,21 @@ import datetime as dt
 from django.db.models import Avg
 from rest_framework import serializers
 from rest_framework.relations import SlugRelatedField
+
 from reviews.models import Category, Comment, Genre, Review, Title
 
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ("name", "slug")
+        exclude = ['id']
         lookup_field = "slug"
 
 
 class GenreSerializer(serializers.ModelSerializer):
     class Meta:
         model = Genre
-        fields = ("name", "slug")
+        exclude = ['id']
         lookup_field = "slug"
 
 
@@ -92,7 +93,7 @@ class ReviewSerializer(serializers.ModelSerializer):
             Review.objects.filter(author=author, title=title_id)
             and self.context["request"].method == "POST"
         ):
-            raise serializers.ValidationError("Must be unical!")
+            raise serializers.ValidationError("Ваш отзыв уже есть!")
         return data
 
 
