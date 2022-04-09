@@ -86,10 +86,12 @@ class ReviewSerializer(serializers.ModelSerializer):
         model = Review
 
     def validate(self, data):
-        title_id = self.context['request'].parser_context['kwargs']['title_id']
-        author = self.context['request'].user
-        if (Review.objects.filter(author=author, title=title_id)
-                and self.context['request'].method == 'POST'):
+        title_id = self.context["request"].parser_context["kwargs"]["title_id"]
+        author = self.context["request"].user
+        if (
+            Review.objects.filter(author=author, title=title_id)
+            and self.context["request"].method == "POST"
+        ):
             raise serializers.ValidationError("Must be unical!")
         return data
 
