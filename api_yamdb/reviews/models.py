@@ -71,7 +71,7 @@ class Review(models.Model):
         default_related_name = "reviews"
 
     def __str__(self):
-        return self.text
+        return self.text[:15]
 
 
 class Comment(models.Model):
@@ -98,4 +98,4 @@ class Comment(models.Model):
         verbose_name_plural = "Комментарии"
 
     def __str__(self):
-        return self.text
+        return self.text[:15]

@@ -1,5 +1,6 @@
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import exceptions, filters, mixins, viewsets
+from django.db.models import Avg
+from rest_framework import filters, mixins, viewsets
 from rest_framework.generics import get_object_or_404
 from rest_framework.pagination import LimitOffsetPagination
 
@@ -12,39 +13,40 @@ from api.serializers import (CategorySerializer, CommentSerializer,
                              TitlePOSTSerializer, TitleSerializer)
 
 
-class GetPostDelViewSet( 
-    mixins.CreateModelMixin, 
-    mixins.ListModelMixin, 
-    mixins.DestroyModelMixin, 
-    viewsets.GenericViewSet, 
-): 
-    filter_backends = (filters.SearchFilter,) 
-    search_fields = ("name",) 
-    permission_classes = (ReadOnly,) 
-    pagination_class = LimitOffsetPagination 
- 
-    def get_permissions(self): 
-        if self.action not in ('list', 'retrieve'): 
-            return (IsAdmin(),) 
-        return super().get_permissions() 
- 
- 
-class TitleViewSet(viewsets.ModelViewSet): 
-    queryset = Title.objects.all() 
-    serializer_class = TitleSerializer 
-    filter_backends = (DjangoFilterBackend,) 
-    filterset_class = TitleFilter 
-    permission_classes = (ReadOnly,) 
-    pagination_class = LimitOffsetPagination 
- 
-    def get_serializer_class(self): 
-        if self.action in ('list', 'retrieve'): 
-            return TitleSerializer 
-        return TitlePOSTSerializer 
- 
-    def get_permissions(self): 
-        if self.action not in ('list', 'retrieve'): 
-            return (IsAdmin(),) 
+class GetPostDelViewSet(
+    mixins.CreateModelMixin,
+    mixins.ListModelMixin,
+    mixins.DestroyModelMixin,
+    viewsets.GenericViewSet,
+):
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ("name",)
+    permission_classes = (ReadOnly,)
+    pagination_class = LimitOffsetPagination
+
+    def get_permissions(self):
+        if self.action not in ('list', 'retrieve'):
+            return (IsAdmin(),)
+        return super().get_permissions()
+
+
+class TitleViewSet(viewsets.ModelViewSet):
+    queryset = Title.objects.annotate(
+        rating=Avg('reviews__score')).order_by('-id')
+    serializer_class = TitleSerializer
+    filter_backends = (DjangoFilterBackend,)
+    filterset_class = TitleFilter
+    permission_classes = (ReadOnly,)
+    pagination_class = LimitOffsetPagination
+
+    def get_serializer_class(self):
+        if self.action in ('list', 'retrieve'):
+            return TitleSerializer
+        return TitlePOSTSerializer
+
+    def get_permissions(self):
+        if self.action not in ('list', 'retrieve'):
+            return (IsAdmin(),)
         return super().get_permissions()
 
 
