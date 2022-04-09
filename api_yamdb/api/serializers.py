@@ -3,20 +3,21 @@ import datetime as dt
 from django.db.models import Avg
 from rest_framework import serializers
 from rest_framework.relations import SlugRelatedField
+
 from reviews.models import Category, Comment, Genre, Review, Title
 
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ("name", "slug")
+        exclude = ("id",)
         lookup_field = "slug"
 
 
 class GenreSerializer(serializers.ModelSerializer):
     class Meta:
         model = Genre
-        fields = ("name", "slug")
+        exclude = ("id",)
         lookup_field = "slug"
 
 
@@ -35,17 +36,17 @@ class TitlePOSTSerializer(serializers.ModelSerializer):
     def validate_year(self, value):
         year = dt.date.today().year
         if not (value <= year):
-            raise serializers.ValidationError("Check the year!")
+            raise serializers.ValidationError("Проверьте год!")
         return value
 
     def validate_category(self, value):
         if Category.objects.filter(slug=value).exists():
-            raise serializers.ValidationError("Check category!")
+            raise serializers.ValidationError("Проверьте категорию!")
         return value
 
     def validate_genre(self, value):
         if Genre.objects.filter(slug=value).exists():
-            raise serializers.ValidationError("Check genre!")
+            raise serializers.ValidationError("Проверьте жанр!")
         return value
 
 
@@ -92,7 +93,9 @@ class ReviewSerializer(serializers.ModelSerializer):
             Review.objects.filter(author=author, title=title_id)
             and self.context["request"].method == "POST"
         ):
-            raise serializers.ValidationError("Must be unical!")
+            raise serializers.ValidationError(
+                "Можно оставить только один отзыв!"
+            )
         return data
 
 

@@ -8,12 +8,8 @@ from rest_framework_simplejwt.tokens import RefreshToken
 
 from .models import User
 from .permissions import IsAdmin
-from .serializers import (
-    ConfirmationCodeSerializer,
-    EmailSerializer,
-    UserMeSerializer,
-    UserSerializer,
-)
+from .serializers import (ConfirmationCodeSerializer, EmailSerializer,
+                          UserMeSerializer, UserSerializer)
 
 
 @api_view(["POST"])

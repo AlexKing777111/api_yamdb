@@ -1,5 +1,6 @@
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
+
 from users.models import User
 
 
@@ -21,18 +22,21 @@ class Category(models.Model):
 
 class Title(models.Model):
     name = models.TextField()
-    year = models.IntegerField(verbose_name="year")
+    year = models.IntegerField(verbose_name="Год")
     category = models.ForeignKey(
-        Category, on_delete=models.SET_NULL, null=True, related_name="category"
+        Category,
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name="Категория"
     )
-    genre = models.ManyToManyField(Genre, related_name="genre")
+    genre = models.ManyToManyField(Genre, related_name="Жанр")
     description = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.name
 
     class Meta:
-        ordering = ["-pk"]
+        ordering = ("-pk",)
 
 
 class Review(models.Model):

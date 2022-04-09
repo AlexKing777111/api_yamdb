@@ -2,18 +2,13 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters, mixins, viewsets
 from rest_framework.generics import get_object_or_404
 from rest_framework.pagination import LimitOffsetPagination
-from reviews.models import Category, Genre, Review, Title
 
 from api.filters import TitleFilter
-from api.permissions import AdminUser, ReadOnly, ReviewCommentPermission
-from api.serializers import (
-    CategorySerializer,
-    CommentSerializer,
-    GenreSerializer,
-    ReviewSerializer,
-    TitlePOSTSerializer,
-    TitleSerializer,
-)
+from api.permissions import IsAdmin, ReadOnly, ReviewCommentPermission
+from api.serializers import (CategorySerializer, CommentSerializer,
+                             GenreSerializer, ReviewSerializer,
+                             TitlePOSTSerializer, TitleSerializer)
+from reviews.models import Category, Genre, Review, Title
 
 
 class GetPostDelViewSet(
@@ -22,14 +17,14 @@ class GetPostDelViewSet(
     mixins.DestroyModelMixin,
     viewsets.GenericViewSet,
 ):
-    filter_backends = [filters.SearchFilter]
-    search_fields = ["name"]
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ("name",)
     permission_classes = (ReadOnly,)
     pagination_class = LimitOffsetPagination
 
     def get_permissions(self):
-        if self.request.method != "GET":
-            return (AdminUser(),)
+        if self.action not in ('list', 'retrieve'):
+            return (IsAdmin(),)
         return super().get_permissions()
 
 
@@ -48,7 +43,7 @@ class TitleViewSet(viewsets.ModelViewSet):
 
     def get_permissions(self):
         if self.request.method != "GET":
-            return (AdminUser(),)
+            return (IsAdmin(),)
         return super().get_permissions()
 
 
