@@ -48,7 +48,7 @@ class TitleViewSet(viewsets.ModelViewSet):
         return TitlePOSTSerializer
 
     def get_permissions(self):
-        if self.action not in ('list', 'retrieve'):
+        if self.request.method != "GET":
             return (IsAdmin(),)
         return super().get_permissions()
 
