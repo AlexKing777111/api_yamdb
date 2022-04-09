@@ -1,6 +1,5 @@
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
-
 from users.models import User
 
 
@@ -27,7 +26,7 @@ class Title(models.Model):
         Category,
         on_delete=models.SET_NULL,
         null=True,
-        related_name="Категория"
+        related_name="Категория",
     )
     genre = models.ManyToManyField(Genre, related_name="Жанр")
     description = models.TextField(blank=True, null=True)
