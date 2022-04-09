@@ -23,13 +23,13 @@ class GetPostDelViewSet(
     mixins.DestroyModelMixin,
     viewsets.GenericViewSet,
 ):
-    filter_backends = [filters.SearchFilter]
-    search_fields = ("name", )
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ("name",)
     permission_classes = (ReadOnly,)
     pagination_class = LimitOffsetPagination
 
     def get_permissions(self):
-        if self.request.method != "GET":
+        if self.action not in ('list', 'retrieve'):
             return (IsAdmin(),)
         return super().get_permissions()
 
@@ -43,7 +43,7 @@ class TitleViewSet(viewsets.ModelViewSet):
     pagination_class = LimitOffsetPagination
 
     def get_serializer_class(self):
-        if self.request.method == "GET":
+        if self.action not in ('list', 'retrieve'):
             return TitleSerializer
         return TitlePOSTSerializer
 
