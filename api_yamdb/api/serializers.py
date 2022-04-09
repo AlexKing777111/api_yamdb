@@ -10,14 +10,14 @@ from reviews.models import Category, Comment, Genre, Review, Title
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        exclude = ['id']
+        exclude = ("id",)
         lookup_field = "slug"
 
 
 class GenreSerializer(serializers.ModelSerializer):
     class Meta:
         model = Genre
-        exclude = ['id']
+        exclude = ("id",)
         lookup_field = "slug"
 
 
@@ -36,17 +36,17 @@ class TitlePOSTSerializer(serializers.ModelSerializer):
     def validate_year(self, value):
         year = dt.date.today().year
         if not (value <= year):
-            raise serializers.ValidationError("Check the year!")
+            raise serializers.ValidationError("Проверьте год!")
         return value
 
     def validate_category(self, value):
         if Category.objects.filter(slug=value).exists():
-            raise serializers.ValidationError("Check category!")
+            raise serializers.ValidationError("Проверьте категорию!")
         return value
 
     def validate_genre(self, value):
         if Genre.objects.filter(slug=value).exists():
-            raise serializers.ValidationError("Check genre!")
+            raise serializers.ValidationError("Проверьте жанр!")
         return value
 
 
