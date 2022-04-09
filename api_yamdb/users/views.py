@@ -1,3 +1,5 @@
+from api.permissions import IsAdmin
+from django.conf import settings
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404
@@ -7,7 +9,6 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from .models import User
-from .permissions import IsAdmin
 from .serializers import (
     ConfirmationCodeSerializer,
     EmailSerializer,
@@ -46,7 +47,7 @@ def send_confirmation_code(request):
             send_mail(
                 subject="Confirmation code!",
                 message=str(token),
-                from_email="admin@yamdb.ru",
+                from_email=settings.DEFAULT_FROM_EMAIL,
                 recipient_list=[
                     email,
                 ],
@@ -65,19 +66,19 @@ def send_token(request):
     confirmation_code = serializer.validated_data.get("confirmation_code")
     username = serializer.validated_data.get("username")
     user = get_object_or_404(User, username=username)
-    if confirmation_code is None:
+    if not confirmation_code:
         return Response(
             "Введите confirmation_code.", status=status.HTTP_400_BAD_REQUEST
         )
-    if username is None:
+    if not username:
         return Response(
             "Введите имя пользователя.", status=status.HTTP_400_BAD_REQUEST
         )
     token_check = default_token_generator.check_token(user, confirmation_code)
-    if token_check is True:
+    if token_check:
         refresh = RefreshToken.for_user(user)
         return Response(
-            f"Ваш токен:{refresh.access_token}", status=status.HTTP_200_OK
+            f"Ваш токен: {refresh.access_token}", status=status.HTTP_200_OK
         )
     return Response(
         "Неправильный confirmation_code.", status=status.HTTP_400_BAD_REQUEST
@@ -101,10 +102,8 @@ class UsersViewSet(viewsets.ModelViewSet):
         ),
         serializer_class=UserMeSerializer,
         permission_classes=[permissions.IsAuthenticated],
-        url_path="me",
-        url_name="me",
     )
-    def get_me(self, request):
+    def me(self, request):
         user = self.request.user
         serializer = self.get_serializer(user)
         if request.method == "PATCH":

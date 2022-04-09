@@ -5,7 +5,7 @@ from rest_framework.pagination import LimitOffsetPagination
 from reviews.models import Category, Genre, Review, Title
 
 from api.filters import TitleFilter
-from api.permissions import AdminUser, ReadOnly, ReviewCommentPermission
+from api.permissions import IsAdmin, ReadOnly, ReviewCommentPermission
 from api.serializers import (
     CategorySerializer,
     CommentSerializer,
@@ -29,7 +29,7 @@ class GetPostDelViewSet(
 
     def get_permissions(self):
         if self.request.method != "GET":
-            return (AdminUser(),)
+            return (IsAdmin(),)
         return super().get_permissions()
 
 
@@ -48,7 +48,7 @@ class TitleViewSet(viewsets.ModelViewSet):
 
     def get_permissions(self):
         if self.request.method != "GET":
-            return (AdminUser(),)
+            return (IsAdmin(),)
         return super().get_permissions()
 
 
