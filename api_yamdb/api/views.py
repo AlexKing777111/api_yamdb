@@ -79,10 +79,10 @@ class ReviewViewSet(viewsets.ModelViewSet):
         title_id = self.kwargs.get("title_id")
         title = get_object_or_404(Title, id=title_id)
         author = self.request.user
-        if Review.objects.filter(title=title, author=author).exists():
-            raise exceptions.ValidationError(
-                'Можно сделать только один отзыв к ревью'
-            )
+        # if Review.objects.filter(title=title, author=author).exists():
+        #     raise exceptions.ValidationError(
+        #         'Можно сделать только один отзыв к ревью'
+        #     )
         serializer.save(author=self.request.user, title=title)
 
 
